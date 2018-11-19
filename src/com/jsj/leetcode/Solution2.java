@@ -1,7 +1,5 @@
 package com.jsj.leetcode;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 /**
  * @author jsj
  * @since 2018-11-18
@@ -24,28 +22,15 @@ public class Solution2 {
         ListNode head = null;
         ListNode now = null;
         ListNode next;
-        for (ListNode pointer1 = l1, pointer2 = l2; pointer1 != null || pointer2 != null || count != 0; pointer1 = pointer1.next, pointer2 = pointer2.next) {
-            if (pointer1 == null || pointer2 == null) {
-                next = pointer1 == null ? pointer2 : pointer1;
-                if (count == 0) {
-                    now.next = next;
-                    return head;
-                }
-                if (next != null) {
-                    if (next.val == 9) {
-                        now.next = new ListNode(0);
-                        now = now.next;
-                        next.val = 1;
-                    } else {
-                        next.val++;
-                    }
-                    now.next = next;
-                } else {
-                    now.next = new ListNode(count);
-                }
-                return head;
+        ListNode pointer1 = l1, pointer2 = l2;
+        for (; pointer1 != null || pointer2 != null || count != 0; ) {
+            nowBit = count;
+            if (pointer1 != null) {
+                nowBit += pointer1.val;
             }
-            nowBit = pointer1.val + pointer2.val + count;
+            if (pointer2 != null) {
+                nowBit += pointer2.val;
+            }
             if (nowBit >= 10) {
                 nowBit -= 10;
                 count = 1;
@@ -59,6 +44,12 @@ public class Solution2 {
                 next = new ListNode(nowBit);
                 now.next = next;
                 now = next;
+            }
+            if (pointer1 != null) {
+                pointer1 = pointer1.next;
+            }
+            if (pointer2 != null) {
+                pointer2 = pointer2.next;
             }
         }
         return head;
