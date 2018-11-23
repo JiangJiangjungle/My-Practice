@@ -18,3 +18,4 @@
 | 3  | C    | f   | 5500   |
 | 4  | D    | m   | 500    |
  */
+update salary s1 set s1.sex = if(sex='m','f','m')
