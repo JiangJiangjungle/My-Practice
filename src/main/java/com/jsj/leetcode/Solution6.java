@@ -1,4 +1,4 @@
-package main.java.com.jsj.leetcode;
+package com.jsj.leetcode;
 
 /**
  * @author jsj

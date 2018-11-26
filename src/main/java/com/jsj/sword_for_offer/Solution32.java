@@ -1,4 +1,4 @@
-package main.java.com.jsj.sword_for_offer;
+package com.jsj.sword_for_offer;
 
 import java.util.Arrays;
 import java.util.Comparator;
