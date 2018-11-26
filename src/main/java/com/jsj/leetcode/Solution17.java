@@ -29,7 +29,10 @@ public class Solution17 {
         A:
         for (; x != -1; ) {
             B:
-            for (int y = 0; y < getRange(digits.charAt(x)); y++) {
+            for (int y = 0; y < 4; y++) {
+                if (y==3&&!(digits.charAt(x)=='7'||digits.charAt(x)=='9')){
+                    break;
+                }
                 now = getChar(digits.charAt(x), y);
                 sb.append(now);
                 if (x == digits.length() - 1) {
@@ -45,7 +48,7 @@ public class Solution17 {
                     sb.deleteCharAt(x);
                 } else {
                     x++;
-                    break B;
+                    break;
                 }
             }
         }
@@ -73,11 +76,6 @@ public class Solution17 {
             return (char) ('w' + j);
         }
         return (char) ('a' + 3 * (ch - '2') + j);
-    }
-
-    private int getRange(char ch) {
-        if (ch == '7' || ch == '9') return 4;
-        return 3;
     }
 
     private int getStart(char ch, char num) {
