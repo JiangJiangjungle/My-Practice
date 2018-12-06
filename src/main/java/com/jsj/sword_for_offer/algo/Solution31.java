@@ -13,26 +13,21 @@ public class Solution31 {
     public int NumberOf1Between1AndN_Solution(int n) {
         if (n == 0) return 0;
         if (n < 10) return 1;
-        String s = String.valueOf(n);
-        int length = s.length();
-        char[] chars = s.toCharArray();
+        int result = 0;
+        int x = n;
+        int count = 1;
+        while (x >= 10) {
+            x = x / 10;
+            count = count * 10;
+        }
+        int y = n - x * count;
+        result += x==1 ? y + 1 : count;
+        result += NumberOf1Between1AndN_Solution(y);
+        result += x * NumberOf1Between1AndN_Solution(count - 1);
+        return result;
+    }
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length - 1; i++) {
-            sb.append('9');
-        }
-        //最大的N-1位数，如N-1=3时，maxN_1=999
-        int maxN_1 = Integer.valueOf(sb.toString());
-        //除去最高位以后的数
-        int next = Integer.valueOf(s.substring(1));
-        if (chars[0] == '1') {
-            return next + 1
-                    + NumberOf1Between1AndN_Solution(maxN_1)
-                    + NumberOf1Between1AndN_Solution(next);
-        } else {
-            return (chars[0] - '0' - 2) * NumberOf1Between1AndN_Solution(maxN_1)
-                    + NumberOf1Between1AndN_Solution(next)
-                    + NumberOf1Between1AndN_Solution(Integer.valueOf("1" + sb.toString()));
-        }
+    public static void main(String[] args) {
+        System.out.println(new Solution31().NumberOf1Between1AndN_Solution(100));
     }
 }

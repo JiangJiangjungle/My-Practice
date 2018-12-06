@@ -1,7 +1,7 @@
 package com.jsj.sword_for_offer.algo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * @author jsj
@@ -17,75 +17,26 @@ public class Solution29 {
         if (k > input.length || k == 0) {
             return result;
         }
-        int[] heap = new int[k];
+        //用jdk提供的PriorityQueue实现堆
+        PriorityQueue<Integer> bigHeap = new PriorityQueue<>(k, (o1, o2) -> o2 - o1);
         for (int i = 0; i < input.length; i++) {
-            if (i < k) {
-                heap[i] = input[i];
-                if (i == k - 1) {
-                    init(heap);
-                }
-            } else {
-                if (input[i] < heap[0]) {
-                    refresh(heap, input[i]);
-                }
+            if (bigHeap.size() < k) {
+                bigHeap.add(input[i]);
+            } else if (input[i] < bigHeap.peek()) {
+                bigHeap.poll();
+                bigHeap.add(input[i]);
             }
         }
-        Arrays.sort(heap);
-        for (Integer i : heap) {
-            result.add(i);
-        }
+        result.addAll(bigHeap);
         return result;
     }
 
-    private void init(int[] array) {
-        int n = array.length;
-        int now;
-        int left;
-        int right;
-
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            now = i;
-            while ((now <= n / 2 - 1)) {
-                left = 2 * (now + 1) - 1;
-                if (now == n / 2 - 1 && n % 2 == 0) {
-                    if (array[now] < array[left]) {
-                        swap(array, now, left);
-                    }
-                    break;
-                }
-                right = left + 1;
-                if (array[now] < array[left] || array[now] < array[right]) {
-
-                    if (array[now] < array[left] && array[now] < array[right]) {
-                        if (array[left] < array[right]) {
-                            swap(array, now, right);
-                            now = right;
-                        } else {
-                            swap(array, now, left);
-                            now = left;
-                        }
-                    } else if (array[now] < array[left]) {
-                        swap(array, now, left);
-                        now = left;
-                    } else {
-                        swap(array, now, right);
-                        now = right;
-                    }
-                } else {
-                    break;
-                }
+    public static void main(String[] args) {
+        ArrayList<Integer> r = new Solution29().GetLeastNumbers_Solution(new int[]{4, 5, 1, 6, 2, 7, 3, 8}, 8);
+        if (r != null) {
+            for (Integer i : r) {
+                System.out.println(i);
             }
         }
-    }
-
-    public void refresh(int[] array, int num) {
-        array[0] = num;
-        init(array);
-    }
-
-    private void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 }
