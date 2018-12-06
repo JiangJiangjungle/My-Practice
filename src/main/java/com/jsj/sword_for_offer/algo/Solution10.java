@@ -8,17 +8,16 @@ package com.jsj.sword_for_offer.algo;
 public class Solution10 {
     public int RectCover(int target) {
         if (target <= 2) return target;
-        int[] temp = new int[2];
-        temp[0] = 1;
-        temp[1] = 2;
-        int i = 2;
-        int a;
-        while (i < target) {
-            a = temp[1];
-            temp[1] += temp[0];
-            temp[0] = a;
-            i++;
+        int count = 2;
+        int fn_1 = 1;
+        int fn = 2;
+        int temp;
+        while (count < target) {
+            temp = fn;
+            fn += fn_1;
+            fn_1 = temp;
+            count++;
         }
-        return temp[1];
+        return fn;
     }
 }
