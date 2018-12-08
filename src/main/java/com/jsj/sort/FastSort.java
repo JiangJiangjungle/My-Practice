@@ -37,6 +37,6 @@ public class FastSort {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(sort(new int[]{6,4, 6, 5})));
+        System.out.println(Arrays.toString(sort(new int[]{6, 4, 6, 5})));
     }
 }

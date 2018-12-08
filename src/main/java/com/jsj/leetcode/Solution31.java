@@ -1,5 +1,7 @@
 package com.jsj.leetcode;
 
+import java.util.Arrays;
+
 /**
  * @author jsj
  * @since 2018-12-5
@@ -16,6 +18,29 @@ package com.jsj.leetcode;
  */
 public class Solution31 {
     public void nextPermutation(int[] nums) {
+        for (int i = nums.length - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                Arrays.sort(nums, i, nums.length);
+                for (int j = i; j < nums.length; j++) {
+                    if (nums[i - 1] < nums[j]) {
+                        swap(nums, i - 1, j);
+                        return;
+                    }
+                }
+            }
+        }
+        Arrays.sort(nums);
+    }
 
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{2, 3, 1};
+        new Solution31().nextPermutation(nums);
+        System.out.println(Arrays.toString(nums));
     }
 }
