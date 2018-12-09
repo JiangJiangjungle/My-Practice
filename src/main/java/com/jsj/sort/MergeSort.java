@@ -36,6 +36,6 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(sort(new int[]{5,3})));
+        System.out.println(Arrays.toString(sort(new int[]{5, 3})));
     }
 }

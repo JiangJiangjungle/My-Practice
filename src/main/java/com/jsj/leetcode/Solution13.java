@@ -1,5 +1,8 @@
 package com.jsj.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author jsj
  * @since 2018-11-20
@@ -48,6 +51,52 @@ package com.jsj.leetcode;
 public class Solution13 {
 
     public int romanToInt(String s) {
-        return 0;
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if ('M' == s.charAt(i)) {
+                count += 1000;
+            } else if ('D' == s.charAt(i)) {
+                count += 500;
+            } else if ('C' == s.charAt(i)) {
+                if (i < s.length() - 1 && 'M' == s.charAt(i + 1)) {
+                    count += 900;
+                    i++;
+                } else if (i < s.length() - 1 && 'D' == s.charAt(i + 1)) {
+                    count += 400;
+                    i++;
+                } else {
+                    count += 100;
+                }
+            } else if ('L' == s.charAt(i)) {
+                count += 50;
+            } else if ('X' == s.charAt(i)) {
+                if (i < s.length() - 1 && 'C' == s.charAt(i + 1)) {
+                    count += 90;
+                    i++;
+                } else if (i < s.length() - 1 && 'L' == s.charAt(i + 1)) {
+                    count += 40;
+                    i++;
+                } else {
+                    count += 10;
+                }
+            } else if ('V' == s.charAt(i)) {
+                count += 5;
+            } else if ('I' == s.charAt(i)) {
+                if (i < s.length() - 1 && 'X' == s.charAt(i + 1)) {
+                    count += 9;
+                    i++;
+                } else if (i < s.length() - 1 && 'V' == s.charAt(i + 1)) {
+                    count += 4;
+                    i++;
+                } else {
+                    count += 1;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution13().romanToInt("III"));
     }
 }

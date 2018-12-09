@@ -44,6 +44,10 @@ package com.jsj.leetcode;
  */
 public class Solution10 {
     public boolean isMatch(String s, String p) {
-        return false;
+        return s.matches(p);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution10().isMatch("acab", ".*c*a*b"));
     }
 }
