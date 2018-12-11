@@ -106,14 +106,13 @@ public class Solution37 {
                 if (board[i][j] != '.') continue;
                 getAvaliable(board, array, i, j);
                 for (int x = 0; x < array.length; x++) {
-                    if (array[x] == 0) {
-                        board[i][j] = (char) (x + '1');
-                        ok = doSolveSudoku(board);
-                        if (ok) {
-                            return true;
-                        }
-                        board[i][j] = '.';
+                    if (array[x] > 0) continue;
+                    board[i][j] = (char) (x + '1');
+                    ok = doSolveSudoku(board);
+                    if (ok) {
+                        return true;
                     }
+                    board[i][j] = '.';
                 }
             }
         }
