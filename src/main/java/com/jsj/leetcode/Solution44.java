@@ -49,4 +49,7 @@ package com.jsj.leetcode;
  * 输入: false
  */
 public class Solution44 {
+    public boolean isMatch(String s, String p) {
+        return s.matches(p);
+    }
 }
