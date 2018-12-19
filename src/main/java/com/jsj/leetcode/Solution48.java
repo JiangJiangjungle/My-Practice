@@ -1,5 +1,7 @@
 package com.jsj.leetcode;
 
+import java.util.Arrays;
+
 /**
  * @author jsj
  * @since 2018-12-18
@@ -46,6 +48,27 @@ package com.jsj.leetcode;
  */
 public class Solution48 {
     public void rotate(int[][] matrix) {
+        for (int i = 0; matrix.length - i - 1 > i; i++) {
+            for (int count = i, tmp, now, bound = matrix.length - i - 1; count < bound; count++) {
+                tmp = matrix[i][count];
+                now = matrix.length - 1 - count;
+                matrix[i][count] = matrix[now][i];
+                matrix[now][i] = matrix[bound][now];
+                matrix[bound][now] = matrix[count][bound];
+                matrix[count][bound] = tmp;
+            }
+        }
+    }
 
+    public static void main(String[] args) {
+        int[][] matrix = new int[][]{
+                {5, 1, 9, 11},
+                {2, 4, 8, 10},
+                {13, 3, 6, 7},
+                {15, 14, 12, 16}};
+        new Solution48().rotate(matrix);
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.println(Arrays.toString(matrix[i]));
+        }
     }
 }
