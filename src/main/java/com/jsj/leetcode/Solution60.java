@@ -55,6 +55,6 @@ public class Solution60 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution60().getPermutation(4,4));
+        System.out.println(new Solution60().getPermutation(4, 4));
     }
 }
