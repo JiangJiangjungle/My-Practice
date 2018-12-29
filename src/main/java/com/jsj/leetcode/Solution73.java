@@ -1,9 +1,5 @@
 package com.jsj.leetcode;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author jsj
  * @since 2018-12-27
