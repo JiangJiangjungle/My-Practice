@@ -1,4 +1,4 @@
-package com.jsj.cvte;
+package com.jsj.company.cvte;
 
 /**
  * 相邻数组配对
