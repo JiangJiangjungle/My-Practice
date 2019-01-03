@@ -8,43 +8,21 @@ package com.jsj.sword_for_offer.string;
  * 后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么？
  */
 public class Solution44 {
-    public String ReverseSentence(String str) {
-        if (str == null || str.equals("") || str.equals(" ")) return str;
-        char[] chars = str.toCharArray();
-        int length = chars.length - 1;
-        doReverse(chars, 0, length);
-        int i = 0;
-        int j = 0;
-        while (i <= length) {
-            if (chars[i] == ' ') {
-                if (j < i) {
-                    doReverse(chars, j, i - 1);
-                }
-                j = i + 1;
-            }
-            i++;
-        }
-        if (j < i) {
-            doReverse(chars, j, i - 1);
-        }
 
+    public String ReverseSentence(String str) {
+        if (null == str || "".equals(str) || " ".equals(str)) return str;
+        String[] strings = str.split(" ");
         StringBuilder sb = new StringBuilder(str.length());
-        for (char c : chars) {
-            sb.append(c);
+        for (int i = strings.length - 1; i >= 0; i--) {
+            sb.append(strings[i]);
+            if (i > 0) {
+                sb.append(" ");
+            }
         }
         return sb.toString();
     }
 
-    private void doReverse(char[] chars, int start, int end) {
-        int length = end - start;
-        for (int i = start; i <= start + length / 2; i++) {
-            swap(chars, i, end - i + start);
-        }
-    }
-
-    private void swap(char[] chars, int i, int j) {
-        char c = chars[i];
-        chars[i] = chars[j];
-        chars[j] = c;
+    public static void main(String[] args) {
+        System.out.print("-----------"+new Solution44().ReverseSentence(" ")+"-----------");
     }
 }

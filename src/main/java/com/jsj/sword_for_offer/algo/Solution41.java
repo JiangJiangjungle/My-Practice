@@ -1,6 +1,7 @@
 package com.jsj.sword_for_offer.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author jsj
@@ -13,40 +14,39 @@ import java.util.ArrayList;
  */
 public class Solution41 {
     public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-        ArrayList<Integer> now;
-        if (sum % 2 == 0) {
-            for (int i = (int) Math.sqrt(sum * 2); i >= 2; i--) {
-                if ((i % 2 == 0 && (sum % i == i / 2)) || (i % 2 != 0 && (sum % i == 0))) {
-                    now = doCreate(i, sum / i);
-                    result.add(now);
-                }
-            }
-        } else {
-            for (int i = (int) Math.sqrt(sum * 2); i >= 2; i--) {
-                if (i % 2 != 0 && (sum % i == 0)) {
-                    now = doCreate(i, sum / i);
-                    result.add(now);
-                } else if (i % 2 == 0 && i % 4 != 0 && (sum % i == i / 2)) {
-                    now = doCreate(i, sum / i);
-                    result.add(now);
-                }
-            }
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for (int num = sum - 1; num > 1; num--) {
+            doFind(sum, num, list);
         }
-        return result;
+        return list;
     }
 
-
-    private static ArrayList<Integer> doCreate(int i, int num) {
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int x = 0; x < i; x++) {
-            if (i % 2 == 0) {
-                result.add(num - i / 2 + x + 1);
-            } else {
-                result.add(num - i / 2 + x);
+    private void doFind(int sum, int num, ArrayList<ArrayList<Integer>> list) {
+        ArrayList<Integer> aList;
+        int m = sum / num;
+        int b = num * (num - 1) / 2;
+        int count;
+        for (; m > 0; m--) {
+            count = num * m + b;
+            if (count <= sum) {
+                if (count == sum) {
+                    aList = new ArrayList<>(num);
+                    for (int i = 0; i < num; i++, m++) {
+                        aList.add(m);
+                    }
+                    list.add(aList);
+                }
+                break;
             }
         }
+    }
 
-        return result;
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> list = new Solution41().FindContinuousSequence(100);
+        if (list != null) {
+            for (ArrayList<Integer> aList : list) {
+                System.out.println(Arrays.toString(aList.toArray()));
+            }
+        }
     }
 }

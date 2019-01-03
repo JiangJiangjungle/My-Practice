@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.match;
 
+import java.util.*;
+
 /**
  * @author jsj
  * @since 2018-5-12
@@ -8,27 +10,39 @@ package com.jsj.sword_for_offer.match;
  * 输出描述：如果当前字符流没有存在出现一次的字符，返回#字符。
  */
 public class Solution54 {
-    private int[] position = new int[128];
-    private int[] count = new int[128];
-    private int now = 0;
+
+    private Map<Character, Integer> map = new LinkedHashMap<>();
 
     //Insert one char from stringstream
     public void Insert(char ch) {
-        position[ch] = now;
-        count[ch] += 1;
-        now++;
+        if (map.containsKey(ch)) {
+            map.remove(ch);
+        } else {
+            map.put(ch, 1);
+        }
     }
 
     //return the first appearence once char in current stringstream
     public char FirstAppearingOnce() {
-        int first = now + 1;
-        char result = '#';
-        for (int i = 0; i < count.length; i++) {
-            if (count[i] == 1 && position[i] < first) {
-                first = position[i];
-                result = (char) i;
-            }
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            return entry.getKey();
         }
-        return result;
+        return '#';
+    }
+
+    public static void main(String[] args) {
+        Solution54 solution54 = new Solution54();
+        solution54.Insert('g');
+        System.out.println(solution54.FirstAppearingOnce());
+        solution54.Insert('o');
+        System.out.println(solution54.FirstAppearingOnce());
+        solution54.Insert('o');
+        System.out.println(solution54.FirstAppearingOnce());
+        solution54.Insert('g');
+        System.out.println(solution54.FirstAppearingOnce());
+        solution54.Insert('l');
+        System.out.println(solution54.FirstAppearingOnce());
+        solution54.Insert('e');
+        System.out.println(solution54.FirstAppearingOnce());
     }
 }

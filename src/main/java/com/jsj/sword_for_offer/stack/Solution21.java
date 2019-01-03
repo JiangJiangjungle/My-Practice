@@ -1,6 +1,6 @@
 package com.jsj.sword_for_offer.stack;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author jsj
@@ -10,35 +10,32 @@ import java.util.Stack;
  * （注意：这两个序列的长度是相等的）
  */
 public class Solution21 {
-    public boolean IsPopOrder(int[] pushA, int[] popA) {
-        Stack<Integer> stack = new Stack<>();
-        int now = 0;
-        int nowIndex = -1;
-        int nextIndex;
-        int top;
-        for (int i = 0; i < popA.length; i++) {
-            nextIndex = findIndex(popA[i], pushA);
-            if (nextIndex == -1) return false;
-            if (nextIndex > nowIndex) {
-                while (popA[i] != pushA[now]) {
-                    stack.push(pushA[now]);
-                    now++;
-                }
-                now++;
-                nowIndex = nextIndex;
-            } else {
-                top = stack.pop();
-                if (top != popA[i]) return false;
-            }
 
+    public boolean IsPopOrder(int[] pushA, int[] popA) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        Map<Integer, Integer> map = new HashMap<>(pushA.length);
+        for (int i = 0; i < pushA.length; i++) {
+            map.put(pushA[i], i);
+        }
+        for (int i = 0, j = 0; j < popA.length; ) {
+            if (!map.containsKey(popA[j])) return false;
+            if (stack.isEmpty() || map.get(stack.peekLast()) < map.get(popA[j])) {
+                for (; i < pushA.length; i++) {
+                    if (pushA[i] == popA[j]) {
+                        i++;
+                        break;
+                    }
+                    stack.addLast(pushA[i]);
+                }
+                j++;
+            } else if (popA[j] == stack.pollLast()) {
+                j++;
+            } else return false;
         }
         return true;
     }
 
-    private int findIndex(int i, int[] popA) {
-        for (int j = 0; j < popA.length; j++) {
-            if (i == popA[j]) return j;
-        }
-        return -1;
+    public static void main(String[] args) {
+        System.out.println(new Solution21().IsPopOrder(new int[]{1}, new int[]{2}));
     }
 }

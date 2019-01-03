@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.array;
 
+import java.util.Arrays;
+
 /**
  * @author jsj
  * @since 2018-5-12
@@ -15,37 +17,37 @@ public class Solution35 {
         return (int) (count % 1000000007);
     }
 
-    private long doInverse(int[] array, int i, int j) {
-        if (i == j) return 0;
-        if (i + 1 == j) {
-            if (array[i] > array[j]) {
-                swap(array, i, j);
+    private long doInverse(int[] array, int start, int end) {
+        if (start == end) return 0;
+        if (start + 1 == end) {
+            if (array[start] > array[end]) {
+                swap(array, start, end);
                 return 1;
             } else return 0;
         }
-        int half = (i + j) / 2;
+        int mid = (start + end) / 2;
         long count = 0L;
-        count += doInverse(array, i, half) + doInverse(array, half + 1, j);
-        int iNow = i;
-        int jNow = half + 1;
-        int[] temp = new int[j - i + 1];
+        count += doInverse(array, start, mid) + doInverse(array, mid + 1, end);
+        int iNow = start;
+        int jNow = mid + 1;
+        int[] temp = new int[end - start + 1];
         int tempNow = 0;
-        while (iNow <= half && jNow <= j) {
+        while (iNow <= mid && jNow <= end) {
             if (array[iNow] > array[jNow]) {
-                count += half - iNow + 1;
+                count += mid - iNow + 1;
                 temp[tempNow++] = array[jNow++];
             } else {
                 temp[tempNow++] = array[iNow++];
             }
         }
-        while (iNow <= half) {
+        while (iNow <= mid) {
             temp[tempNow++] = array[iNow++];
         }
-        while (jNow <= j) {
+        while (jNow <= end) {
             temp[tempNow++] = array[jNow++];
         }
 
-        System.arraycopy(temp, 0, array, i, temp.length);
+        System.arraycopy(temp, 0, array, start, temp.length);
 
         return count;
     }
@@ -54,5 +56,9 @@ public class Solution35 {
         array[i] = array[i] ^ array[j];
         array[j] = array[i] ^ array[j];
         array[i] = array[i] ^ array[j];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution35().InversePairs(new int[]{1, 2, 3, 4, 0, 2}));
     }
 }

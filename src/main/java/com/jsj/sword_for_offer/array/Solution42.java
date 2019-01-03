@@ -1,6 +1,8 @@
 package com.jsj.sword_for_offer.array;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author jsj
@@ -9,23 +11,24 @@ import java.util.ArrayList;
  * 输出描述：对应每个测试案例，输出两个数，小的先输出。
  */
 public class Solution42 {
-    public ArrayList<Integer> FindNumbersWithSum(int [] array, int sum) {
-        int low = 0;
-        int high = array.length - 1;
-        int v;
-        ArrayList<Integer> result = new ArrayList<>();
-        while (low < high) {
-            v = array[low] + array[high];
-            if (v == sum) {
-                result.add(array[low]);
-                result.add(array[high]);
+    public ArrayList<Integer> FindNumbersWithSum(int[] array, int sum) {
+        Set<Integer> record = new HashSet<>(array.length);
+        for (int i = 0; i < array.length; i++) {
+            record.add(array[i]);
+        }
+        ArrayList<Integer> list = new ArrayList<>(2);
+        for (int i = 0, another; i < array.length / 2; i++) {
+            another = sum - array[i];
+            if (record.contains(another)) {
+                list.add(array[i]);
+                list.add(another);
                 break;
-            } else if (v > sum) {
-                high--;
-            } else {
-                low++;
             }
         }
-        return result;
+        return list;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new Solution42().FindNumbersWithSum(new int[]{1,2,4,7,11,15},15);
     }
 }

@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.stack;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -9,12 +11,12 @@ import java.util.Stack;
  */
 public class Solution20 {
 
-    private Stack<Integer> stack = new Stack<>();
-    private Stack<Integer> minStack = new Stack<>();
+    private Deque<Integer> stack = new ArrayDeque<>();
+    private Deque<Integer> minStack = new ArrayDeque<>();
 
     public void push(int node) {
         stack.push(node);
-        if (minStack.empty()) {
+        if (minStack.isEmpty()) {
             minStack.push(node);
         } else {
             int min = minStack.pop();

@@ -10,21 +10,20 @@ package com.jsj.sword_for_offer.algo;
  */
 public class Solution66 {
     public int movingCount(int threshold, int rows, int cols) {
-        boolean[] hasTraveled = new boolean[cols * rows];
-        return doCount(threshold, rows, cols, hasTraveled, 0, 0);
+        boolean[][] records = new boolean[rows][cols];
+        return doCount(threshold, rows, cols, records, 0, 0);
     }
 
-    private int doCount(int threshold, int rows, int cols, boolean[] hasTraveled, int nowRow, int nowCol) {
-        if (nowRow < 0 || nowCol < 0 || nowRow >= rows || nowCol >= cols) return 0;
-        if (!isLegal(nowRow, nowCol, threshold, cols) || hasTraveled[nowRow * cols + nowCol]) return 0;
-        hasTraveled[nowRow * cols + nowCol] = true;
-        return 1 + doCount(threshold, rows, cols, hasTraveled, nowRow - 1, nowCol)
-                + doCount(threshold, rows, cols, hasTraveled, nowRow + 1, nowCol)
-                + doCount(threshold, rows, cols, hasTraveled, nowRow, nowCol - 1)
-                + doCount(threshold, rows, cols, hasTraveled, nowRow, nowCol + 1);
+    private int doCount(int threshold, int rows, int cols, boolean[][] records, int x, int y) {
+        if (x < 0 || y < 0 || x >= rows || y >= cols || records[x][y] || !check(x, y, threshold)) return 0;
+        records[x][y] = true;
+        return 1 + doCount(threshold, rows, cols, records, x + 1, y)
+                + doCount(threshold, rows, cols, records, x - 1, y)
+                + doCount(threshold, rows, cols, records, x, y + 1)
+                + doCount(threshold, rows, cols, records, x, y - 1);
     }
 
-    private boolean isLegal(int x, int y, int threshold, int cols) {
+    private boolean check(int x, int y, int threshold) {
         int count = 0;
 
         while (x != 0) {

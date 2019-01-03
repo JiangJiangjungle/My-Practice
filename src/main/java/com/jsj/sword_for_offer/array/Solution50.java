@@ -9,16 +9,18 @@ package com.jsj.sword_for_offer.array;
  */
 public class Solution50 {
     public boolean duplicate(int numbers[], int length, int[] duplication) {
-        if (length == 0) return false;
+        boolean duplicated = false;
+        if (length == 0) return duplicated;
         int[] count = new int[length];
         for (int i = 0; i < length; i++) {
-            if (count[numbers[i]] == 1) {
-                duplication[0] = numbers[i];
-                return true;
-            } else {
+            if (count[numbers[i]] != 1) {
                 count[numbers[i]] += 1;
+                continue;
             }
+            duplication[0] = numbers[i];
+            duplicated = true;
+            break;
         }
-        return false;
+        return duplicated;
     }
 }

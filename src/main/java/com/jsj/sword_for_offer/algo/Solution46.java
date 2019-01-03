@@ -16,12 +16,12 @@ public class Solution46 {
     public int LastRemaining_Solution(int n, int m) {
         if (n == 0 || m == 0) return -1;
         if (n == 1) return 0;
-        int nowTotal = 2;
-        int nowK = ((m - 1) % 2 + 1) % 2;
-        while (nowTotal < n) {
-            nowTotal++;
-            nowK = (nowK + m) % nowTotal;
+        int number = 2;
+        int x = m % number;
+        while (number < n) {
+            number++;
+            x = (x + m) % number;
         }
-        return nowK;
+        return x;
     }
 }

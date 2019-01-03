@@ -8,20 +8,16 @@ package com.jsj.sword_for_offer.array;
  */
 public class Solution6 {
     public int minNumberInRotateArray(int[] array) {
-        int now;
-        int nowValue;
-        int low = 0;
-        int high = array.length - 1;
-        while (low <= high) {
+        int mid;
+        for (int low = 0, high = array.length - 1; low <= high; ) {
             if (low == high) return array[low];
-            now = (low + high) / 2;
-            nowValue = array[now];
-            if (nowValue >= array[0]) {
-                low = now + 1;
-            } else if (nowValue >= array[now - 1]) {
-                high = now - 1;
+            mid = (low + high) / 2;
+            if (array[mid] >= array[0]) {
+                low = mid + 1;
+            } else if (array[mid] >= array[mid - 1]) {
+                high = mid - 1;
             } else {
-                return nowValue;
+                return array[mid];
             }
         }
         return 0;

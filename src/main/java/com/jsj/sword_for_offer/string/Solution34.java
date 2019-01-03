@@ -1,6 +1,8 @@
 package com.jsj.sword_for_offer.string;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author jsj
@@ -10,25 +12,27 @@ import java.util.Arrays;
  * 思路:用两个大小为52（大小写字母长度）数组分别维护出现次数和最后出现位置。
  */
 public class Solution34 {
-    public int FirstNotRepeatingChar(String str) {
-        int[] count = new int[52];
-        int[] loc = new int[52];
-        Arrays.fill(loc, -1);
-        char[] chars = str.toCharArray();
-        int index;
-        for (int i = 0; i < chars.length; i++) {
-            index = chars[i] > 'Z' ? chars[i] - 'a' + 26 : chars[i] - 'A';
-            count[index] += 1;
-            if (loc[index] == -1) {
-                loc[index] = i;
+
+    public int FirstNotRepeatingChar2(String str) {
+        Map<Character, Integer> record = new LinkedHashMap<>();
+        for (int i = 0; i < str.length(); i++) {
+            if (record.containsKey(str.charAt(i))) {
+                record.put(str.charAt(i), -1);
+            } else {
+                record.put(str.charAt(i), i);
             }
         }
-        int firstLoc = -1;
-        for (int i = 0; i < count.length; i++) {
-            if (count[i] == 1 && (loc[i] < firstLoc || firstLoc == -1)) {
-                firstLoc = loc[i];
+        int value = -1;
+        for (Map.Entry<Character, Integer> entry : record.entrySet()) {
+            value = entry.getValue();
+            if (value != -1) {
+                break;
             }
         }
-        return firstLoc;
+        return value;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution34().FirstNotRepeatingChar2("googgle"));
     }
 }

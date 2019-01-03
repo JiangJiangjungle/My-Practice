@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.array;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,8 +14,8 @@ import java.util.Queue;
 public class Solution13 {
 
     public void reOrderArray(int[] array) {
-        Queue<Integer> queue1 = new LinkedList<>();
-        Queue<Integer> queue2 = new LinkedList<>();
+        Deque<Integer> queue1 = new LinkedList<>();
+        Deque<Integer> queue2 = new LinkedList<>();
         int num;
         for (int anArray : array) {
             num = anArray;

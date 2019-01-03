@@ -8,50 +8,69 @@ package com.jsj.sword_for_offer.list;
  * 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
  */
 public class Solution56 {
-    public ListNode deleteDuplication(ListNode pHead) {
-        if (pHead == null) return null;
-        ListNode last = null;
-        ListNode now = pHead;
-        ListNode next = now.next;
-        ListNode temp;
 
-        while (next != null) {
-            if (now.val == next.val) {
-                temp = next;
-                while (temp != null && temp.val == now.val) {
-                    temp = temp.next;
+    public ListNode deleteDuplication2(ListNode pHead) {
+        if (pHead == null) return null;
+        if (pHead.next == null) return pHead;
+        ListNode head = null;
+        boolean repeat = false;
+        for (ListNode last = pHead, now = last.next, beforeLast = null; now != null; now = now.next) {
+            if (now.val == last.val) {
+                repeat = true;
+                if (now.next == null && beforeLast != null) {
+                    beforeLast.next = null;
                 }
-                if (temp != null) {
-                    now = temp;
-                    if (last != null) {
-                        last.next = now;
-                    } else {
-                        pHead = now;
-                    }
-                    next = now.next;
-                } else {
-                    if (last == null) {
-                        return null;
-                    } else {
-                        last.next = null;
-                        next = null;
-                    }
-                }
-            } else {
-                last = now;
-                now = next;
-                next = next.next;
+                continue;
             }
+            if (head == null) {
+                if (!repeat) {
+                    head = last;
+                } else if (now.next == null) {
+                    head = now;
+                }
+            }
+            if (!repeat) {
+                beforeLast = last;
+                last = now;
+                continue;
+            }
+            if (beforeLast != null) {
+                beforeLast.next = now;
+            }
+            last = now;
+            repeat = false;
         }
-        return pHead;
+        return head;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next = null;
 
         ListNode(int val) {
             this.val = val;
+        }
+    }
+
+    public static void main(String[] args) {
+        ListNode h = new ListNode(3);
+        ListNode head = h;
+        h.next = new ListNode(3);
+        h = h.next;
+        h.next = new ListNode(3);
+        h = h.next;
+        h.next = new ListNode(3);
+        h = h.next;
+        h.next = new ListNode(4);
+        h = h.next;
+        h.next = new ListNode(4);
+        h = h.next;
+        h.next = new ListNode(6);
+
+        h = new Solution56().deleteDuplication2(head);
+        while (h != null) {
+            System.out.println(h.val);
+            h = h.next;
         }
     }
 }

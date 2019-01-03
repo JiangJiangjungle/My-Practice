@@ -1,6 +1,7 @@
 package com.jsj.sword_for_offer.array;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author jsj
@@ -8,71 +9,24 @@ import java.util.Arrays;
  * 题目描述：数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
  * 例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
  * <p>
- * 思路：排序后利用二分查找，找到数组中间对应的数的最小位置和最大位置，判断是否大于一半
+ * 思路：利用hashMap计数
  */
 public class Solution28 {
     public int MoreThanHalfNum_Solution(int[] array) {
-        if (array == null) return 0;
-        if (array.length == 1) return array[0];
-        Arrays.sort(array);
-
-        int half = array.length / 2;
-        int temp = array[half];
-        int low = 0;
-        int high = half;
-        int min = half;
-        int max = half;
-
-        int now;
-        int nowValue;
-        while (low <= high) {
-            now = (low + high) / 2;
-            nowValue = array[now];
-            if (nowValue == temp) {
-                if (now == 0) {
-                    min = now;
-                    break;
-                }
-                if (array[now - 1] != temp) {
-                    min = now;
-                    break;
-                }
-                high = now - 1;
+        Map<Integer, Integer> map = new HashMap<>(array.length / 2);
+        int threshold = array.length / 2+1;
+        for (int anArray : array) {
+            if (map.containsKey(anArray)) {
+                map.computeIfPresent(anArray, (integer, integer2) -> integer2 + 1);
             } else {
-                if (array[now + 1] == temp) {
-                    min = now + 1;
-                    break;
-                }
-                low = now + 1;
+                map.put(anArray, 1);
             }
+            if (threshold <= map.get(anArray)) return anArray;
         }
-        low = half;
-        high = array.length - 1;
-        while (low <= high) {
-            now = (low + high) / 2;
-            nowValue = array[now];
-            if (nowValue == temp) {
-                if (now == array.length - 1) {
-                    max = now;
-                    break;
-                }
-                if (array[now + 1] != temp) {
-                    max = now;
-                    break;
-                }
-                low = now + 1;
-            } else {
-                if (array[now - 1] == temp) {
-                    max = now - 1;
-                    break;
-                }
-                high = now - 1;
-            }
-        }
-        if ((max - min) >= half) {
-            return array[half];
-        } else {
-            return 0;
-        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution28().MoreThanHalfNum_Solution(new int[]{1,2,3,2,4,2,5,2,3}));
     }
 }

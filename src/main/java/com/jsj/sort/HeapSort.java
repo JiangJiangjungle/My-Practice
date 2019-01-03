@@ -1,12 +1,13 @@
 package com.jsj.sort;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class HeapSort {
     public static int[] sort(int[] num) {
         if (num == null || num.length == 0) return num;
-        PriorityQueue<Integer> heap = new PriorityQueue<>(num.length, (o1, o2) -> o1 - o2);
+        PriorityQueue<Integer> heap = new PriorityQueue<>(num.length, Comparator.comparingInt(o -> o));
         for (int i = 0; i < num.length; i++) {
             heap.add(num[i]);
         }

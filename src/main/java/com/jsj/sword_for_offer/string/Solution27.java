@@ -14,40 +14,19 @@ public class Solution27 {
 
     public ArrayList<String> Permutation(String str) {
         ArrayList<String> list = new ArrayList<>();
-        if (str == null || str.equals("")) return list;
-        char[] chars = str.toCharArray();
-
-        Set<String> result = new HashSet<>();
-        Stack<Character> stack = new Stack<>();
-        doPermutation(chars, 0, result, stack);
-
-        list.addAll(result);
-        Collections.sort(list);
+        doPermutation(str.toCharArray(), 0, list);
         return list;
     }
 
-    private void doPermutation(char[] chars, int i, Set<String> result, Stack<Character> stack) {
-        if (i == chars.length) {
-            StringBuilder sb = new StringBuilder();
-            Stack<Character> temp = new Stack<>();
-            char ch;
-            while (!stack.empty()) {
-                ch = stack.pop();
-                sb.append(ch);
-                temp.push(ch);
-            }
-            while (!temp.empty()) {
-                stack.push(temp.pop());
-            }
-            result.add(sb.toString());
+    private void doPermutation(char[] chars, int start, ArrayList<String> list) {
+        if (start == chars.length - 1) {
+            list.add(String.valueOf(chars));
             return;
         }
-        for (int x = i; x < chars.length; x++) {
-            swap(chars, i, x);
-            stack.push(chars[i]);
-            doPermutation(chars, i + 1, result, stack);
-            stack.pop();
-            swap(chars, i, x);
+        for (int i = start; i < chars.length; i++) {
+            swap(chars, start, i);
+            doPermutation(chars, start + 1, list);
+            swap(chars, start, i);
         }
     }
 
@@ -56,5 +35,12 @@ public class Solution27 {
         char c = chars[i];
         chars[i] = chars[x];
         chars[x] = c;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<String> list = new Solution27().Permutation("abc");
+        for (String s : list) {
+            System.out.println(s);
+        }
     }
 }

@@ -11,28 +11,32 @@ package com.jsj.sword_for_offer.algo;
  */
 public class Solution65 {
     public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
-        boolean[] hasTraveled = new boolean[rows * cols];
-        for (int i = 0; i < matrix.length; i++) {
-            if (doHasPath(matrix, rows, cols, str, 0, i / cols, i % cols, hasTraveled)) {
-                return true;
+        boolean[][] records = new boolean[rows][cols];
+        boolean had;
+        for (int i = 0, x, y; i < matrix.length; i++) {
+            if (str[0] != matrix[i]) {
+                continue;
             }
+            x = i / cols;
+            y = i % cols;
+            had = doHasPath(matrix, rows, cols, str, 0, x, y, records);
+            if (had) return true;
         }
         return false;
     }
 
-    private boolean doHasPath(char[] matrix, int rows, int cols, char[] str, int begin, int nowRow, int nowCol, boolean[] hasTraveled) {
-        if (nowRow < 0 || nowCol < 0 || nowRow >= rows || nowCol >= cols) return false;
-        if (hasTraveled[nowRow * cols + nowCol] || matrix[nowRow * cols + nowCol] != str[begin]) return false;
-        if (begin == str.length - 1) return true;
-        hasTraveled[nowRow * cols + nowCol] = true;
-        boolean tag = doHasPath(matrix, rows, cols, str, begin + 1, nowRow - 1, nowCol, hasTraveled)
-                || doHasPath(matrix, rows, cols, str, begin + 1, nowRow + 1, nowCol, hasTraveled)
-                || doHasPath(matrix, rows, cols, str, begin + 1, nowRow, nowCol - 1, hasTraveled)
-                || doHasPath(matrix, rows, cols, str, begin + 1, nowRow, nowCol + 1, hasTraveled);
-        if (!tag) {
-            hasTraveled[nowRow * cols + nowCol] = false;
+    private boolean doHasPath(char[] matrix, int rows, int cols, char[] str, int start, int x, int y, boolean[][] records) {
+        if (start == str.length) return true;
+        if (x == rows || y == cols || x < 0 || y < 0 || records[x][y] || matrix[x * cols + y] != str[start]) {
             return false;
         }
-        return true;
+        records[x][y] = true;
+        boolean had = doHasPath(matrix, rows, cols, str, start + 1, x + 1, y, records)
+                || doHasPath(matrix, rows, cols, str, start + 1, x - 1, y, records)
+                || doHasPath(matrix, rows, cols, str, start + 1, x, y + 1, records)
+                || doHasPath(matrix, rows, cols, str, start + 1, x, y - 1, records);
+
+        records[x][y] = false;
+        return had;
     }
 }

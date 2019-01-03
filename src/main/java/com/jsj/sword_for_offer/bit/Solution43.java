@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.bit;
 
+import java.util.Arrays;
+
 /**
  * @author jsj
  * @since 2018-5-12
@@ -9,22 +11,17 @@ package com.jsj.sword_for_offer.bit;
  */
 public class Solution43 {
     public String LeftRotateString(String str, int n) {
-        if (str == null || str.equals("")) return str;
+        if (str == null || "".equals(str)) return str;
+        n = n % str.length();
         char[] chars = str.toCharArray();
-        if (n >= chars.length) {
-            n = n % chars.length;
-        }
-        StringBuilder sb = new StringBuilder(str.length());
-        int i = n;
-        while (i < chars.length) {
-            sb.append(chars[i]);
-            i++;
-        }
-        i = 0;
-        while (i < n) {
-            sb.append(chars[i]);
-            i++;
-        }
-        return sb.toString();
+        char[] tmp = Arrays.copyOfRange(chars, 0, n + 1);
+        int offset = str.length() - n;
+        if (offset >= 0) System.arraycopy(chars, n, chars, 0, offset);
+        if (n >= 0) System.arraycopy(tmp, 0, chars, offset, n);
+        return new String(chars);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution43().LeftRotateString("abcXYZdef",3));
     }
 }
