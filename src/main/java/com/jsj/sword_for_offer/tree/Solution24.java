@@ -1,8 +1,6 @@
 package com.jsj.sword_for_offer.tree;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author jsj
@@ -13,69 +11,35 @@ import java.util.Stack;
  * 思路：利用后序遍历找到所有叶子节点并判断
  */
 public class Solution24 {
-
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
-        ArrayList<ArrayList<Integer>> paths = new ArrayList<>();
-        ArrayList<Integer> aPath;
-        int count = 0;
-        Stack<TreeNode> stack = new Stack<>();
-        while (root != null) {
-            if (count + root.val > target) {
-                break;
-            }
-            stack.push(root);
-            count += root.val;
-            root = root.left;
-        }
-
-        HashSet<TreeNode> ban = new HashSet<>();
-        TreeNode now;
-        while (!stack.empty()) {
-            now = stack.pop();
-            if (!ban.contains(now)) {
-                if (now.right != null) {
-                    ban.add(now);
-                    stack.push(now);
-                    now = now.right;
-                    while (now != null) {
-                        if (count + now.val > target) {
-                            break;
-                        }
-                        stack.push(now);
-                        count += now.val;
-
-                        now = now.left;
-                    }
-                    continue;
-                } else if (now.left == null) {
-                    //找到叶子结点
-                    if (count == target) {
-                        stack.push(now);
-                        //将栈中数据转换成ArrayList
-                        aPath = inJect(stack);
-                        stack.pop();
-                        paths.add(aPath);
-                    }
-                }
-            }
-            count -= now.val;
-        }
-        return paths;
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        if (root == null) return list;
+        Deque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(root.val);
+        doFindPath(root, target, deque, list);
+        return list;
     }
 
-    private ArrayList<Integer> inJect(Stack<TreeNode> stack) {
-        Stack<TreeNode> temp = new Stack<>();
-        while (!stack.empty()) {
-            temp.push(stack.pop());
+    private void doFindPath(TreeNode root, int target, Deque<Integer> deque, ArrayList<ArrayList<Integer>> list) {
+        if (root == null) return;
+        target -= root.val;
+        if (target < 0) return;
+        if (root.left == null && root.right == null) {
+            if (target == 0) list.add(new ArrayList<>(deque));
+            return;
         }
-        TreeNode node;
-        ArrayList<Integer> result = new ArrayList<>();
-        while (!temp.empty()) {
-            node = temp.pop();
-            result.add(node.val);
-            stack.push(node);
+        TreeNode node = root.left;
+        if (node != null) {
+            deque.addLast(node.val);
+            doFindPath(node, target, deque, list);
+            deque.pollLast();
         }
-        return result;
+        node = root.right;
+        if (node != null) {
+            deque.addLast(node.val);
+            doFindPath(node, target, deque, list);
+            deque.pollLast();
+        }
     }
 
     public class TreeNode {

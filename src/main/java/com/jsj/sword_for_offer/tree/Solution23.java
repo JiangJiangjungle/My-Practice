@@ -15,20 +15,17 @@ public class Solution23 {
     }
 
     private boolean doVerify(int[] sequence, int i, int j) {
-        if (i + 1 == j || i == j) return true;
-        int root = sequence[j];
+        if (i + 1 >= j) return true;
         int index = i - 1;
-        boolean hasMetBig = false;
+        boolean turnRight = false;
         for (int x = i; x < j; x++) {
-            if (sequence[x] > root) {
-                hasMetBig = true;
+            if (sequence[x] > sequence[j]) {
+                turnRight = true;
             } else {
-                if (hasMetBig) return false;
+                if (turnRight) return false;
                 index = x;
             }
         }
-        if (index == i - 1) return doVerify(sequence, i, j - 1);
-        if (index == j - 1) return doVerify(sequence, i, index);
         return doVerify(sequence, i, index) && doVerify(sequence, index + 1, j - 1);
     }
 }
