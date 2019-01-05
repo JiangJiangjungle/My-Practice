@@ -1,9 +1,5 @@
 package com.jsj.sword_for_offer.tree;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
-
 /**
  * @author jsj
  * @since 2018-5-12
@@ -12,48 +8,16 @@ import java.util.Stack;
 public class Solution39 {
 
     public boolean IsBalanced_Solution(TreeNode root) {
-        if (root == null) return true;
-        if (root.left == null && root.right == null) return true;
-
-        int leftDepth = TreeDepth(root.left);
-        int rightDepth = TreeDepth(root.right);
-
-        return IsBalanced_Solution(root.left) &&
-                IsBalanced_Solution(root.right) &&
-                (leftDepth - rightDepth <= 1) &&
-                (leftDepth - rightDepth >= -1);
+        return doBalancedSolution(root) >= 0;
     }
 
-    public int TreeDepth(TreeNode root) {
-        int depth = 0;
-        Stack<TreeNode> stack = new Stack<>();
-        int count = 0;
-
-        while (root != null) {
-            stack.push(root);
-            root = root.left;
-            count++;
-        }
-        TreeNode now;
-        Set<TreeNode> tags = new HashSet<>();
-        while (!stack.empty()) {
-            now = stack.pop();
-            if (now.right != null && !tags.contains(now)) {
-                tags.add(now);
-                stack.push(now);
-                now = now.right;
-                while (now != null) {
-                    stack.push(now);
-                    count++;
-                    now = now.left;
-                }
-                continue;
-            } else if (now.right == null && count > depth) {
-                depth = count;
-            }
-            count--;
-        }
-        return depth;
+    public int doBalancedSolution(TreeNode root) {
+        if (root == null) return 0;
+        int left = doBalancedSolution(root.left);
+        if (left == -1) return left;
+        int right = doBalancedSolution(root.right);
+        if (right == -1) return right;
+        return Math.abs(right - left) > 1 ? -1 : 1 + Math.max(left, right);
     }
 
     public class TreeNode {
