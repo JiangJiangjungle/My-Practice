@@ -1,4 +1,6 @@
-package com.jsj.data_structure;
+package com.jsj.data_structure.skiplist;
+
+import com.jsj.data_structure.skiplist.SkipList;
 
 import java.util.Comparator;
 

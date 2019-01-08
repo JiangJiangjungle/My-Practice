@@ -1,4 +1,4 @@
-package com.jsj.data_structure;
+package com.jsj.data_structure.skiplist;
 
 import java.util.Comparator;
 import java.util.Random;
