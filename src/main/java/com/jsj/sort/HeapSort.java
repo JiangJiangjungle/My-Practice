@@ -14,53 +14,44 @@ public class HeapSort {
 
     public static int[] sort(int[] array) {
         if (array == null || array.length == 0) return array;
-        for (int i = array.length; i > 1; i--) {
-            //整理成大顶堆
-            array = adjustHeap(array, i, true);
-            //将堆顶元素和堆底元素交换，即得到当前最大元素正确的排序位置
-            swap(array, 0, i - 1);
+        //整理成大顶堆
+        for (int i = array.length / 2 - 1; i >= 0; i--) {
+            adjustHeap(array, i, array.length);
+        }
+        //交换堆顶元素与末尾元素，调整堆结构
+        for (int i = array.length - 1; i >= 0; i--) {
+            swap(array, 0, i);
+            adjustHeap(array, 0, i);
         }
         return array;
     }
 
     /**
-     * 构建堆：将array看成完全二叉树的顺序存储结构,自最后一个非叶子节点开始往前逐步调整树形结构
+     * 从index开始调整大顶堆（建立在大顶堆已构建的基础上）
      *
      * @param array
-     * @param end   边界
-     * @param max   是否大顶堆
-     * @return
+     * @param index  节点位置
+     * @param length 边界
      */
-    private static int[] adjustHeap(int[] array, int end, boolean max) {
-        //从最后一个非叶子节点array.length/2-1开始，直到根节点0，反复调整堆
-        for (int i = end / 2 - 1; i >= 0; i--) {
-            adjustNode(array, i, end, max);
-        }
-        return array;
-    }
-
-    /**
-     * 调整位置为start的节点与其子女节点
-     *
-     * @param array
-     * @param start 节点位置
-     * @param end   边界
-     * @param max   是否大顶堆
-     */
-    private static void adjustNode(int[] array, int start, int end, boolean max) {
-        int index = 2 * start + 1;
-        int right = index + 1;
-        boolean needSwap;
-        if (right < end) {
-            needSwap = max && array[right] > array[index] || !max && array[right] < array[index];
-            if (needSwap) {
-                index = right;
+    private static void adjustHeap(int[] array, int index, int length) {
+        //先取出当前元素i
+        int temp = array[index];
+        //从i结点的左子结点开始，也就是2i+1处开始
+        for (int k = index * 2 + 1; k < length; k = k * 2 + 1) {
+            //如果左子结点小于右子结点，k指向右子结点
+            if (k + 1 < length && array[k] < array[k + 1]) {
+                k++;
+            }
+            //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+            if (array[k] > temp) {
+                array[index] = array[k];
+                index = k;
+            } else {
+                break;
             }
         }
-        needSwap = max && array[index] > array[start] || !max && array[index] < array[start];
-        if (needSwap) {
-            swap(array, start, index);
-        }
+        //将temp值放到最终的位置
+        array[index] = temp;
     }
 
     private static void swap(int[] array, int i, int j) {
@@ -70,6 +61,6 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(HeapSort.sort(new int[]{5, 4, 7, 8, 9, 1, 6, 2, 3})));
+        System.out.println(Arrays.toString(HeapSort.sort(new int[]{4, 6, 8, 5, 9})));
     }
 }
