@@ -1,4 +1,4 @@
-package com.jsj.jdk.threadpool;
+package com.jsj.jdk.impl.threadpool;
 
 import java.util.HashSet;
 import java.util.concurrent.*;

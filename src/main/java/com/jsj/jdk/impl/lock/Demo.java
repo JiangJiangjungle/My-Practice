@@ -1,6 +1,6 @@
-package com.jsj.jdk.lock;
+package com.jsj.jdk.impl.lock;
 
-import com.jsj.jdk.threadpool.NamedThreadFactory;
+import com.jsj.jdk.impl.threadpool.NamedThreadFactory;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

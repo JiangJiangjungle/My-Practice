@@ -1,4 +1,4 @@
-package com.jsj.jdk.lock;
+package com.jsj.jdk.impl.lock;
 
 import sun.misc.Unsafe;
 

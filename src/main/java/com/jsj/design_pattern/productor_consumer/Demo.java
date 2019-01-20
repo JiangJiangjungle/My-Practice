@@ -1,7 +1,7 @@
 package com.jsj.design_pattern.productor_consumer;
 
 
-import com.jsj.jdk.threadpool.NamedThreadFactory;
+import com.jsj.jdk.impl.threadpool.NamedThreadFactory;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
