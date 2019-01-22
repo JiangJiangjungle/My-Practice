@@ -1,4 +1,4 @@
-package com.jsj.jdk.demo;
+package com.jsj.jdk.demo.juc;
 
 import com.jsj.jdk.impl.threadpool.NamedThreadFactory;
 

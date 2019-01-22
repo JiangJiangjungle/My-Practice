@@ -1,4 +1,4 @@
-package com.jsj.jdk.demo;
+package com.jsj.jdk.demo.juc;
 
 import com.jsj.jdk.impl.threadpool.NamedThreadFactory;
 
@@ -28,7 +28,7 @@ public class SemaphereDemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Semaphore semaphore = new Semaphore(3);
         ExecutorService threadPool = new ThreadPoolExecutor(5, 5, 0L,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(5), new NamedThreadFactory());
