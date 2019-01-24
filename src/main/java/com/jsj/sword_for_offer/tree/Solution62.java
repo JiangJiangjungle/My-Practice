@@ -1,9 +1,7 @@
 package com.jsj.sword_for_offer.tree;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Stack;
 
 /**
  * @author jsj
@@ -33,8 +31,8 @@ public class Solution62 {
     TreeNode KthNode(TreeNode pRoot, int k) {
         if (pRoot == null || k <= 0) return null;
         Deque<TreeNode> deque = new LinkedList<>();
-        Deque<TreeNode> record = new ArrayDeque<>(k);
         deque.addLast(pRoot);
+        int count = 0;
         A:
         for (TreeNode node; !deque.isEmpty(); ) {
             for (node = deque.peekLast(); node.left != null; ) {
@@ -44,17 +42,14 @@ public class Solution62 {
             do {
                 node = deque.pollLast();
                 if (node == null) break A;
-                record.addLast(node);
-                if (record.size() == k) {
-                    break A;
+                count++;
+                if (count == k) {
+                    return node;
                 }
             } while (node.right == null);
             deque.addLast(node.right);
         }
-        if (record.size() < k) {
-            return null;
-        }
-        return record.pollLast();
+        return null;
     }
 
     public static void main(String[] args) {
@@ -66,6 +61,7 @@ public class Solution62 {
         node.right.left = new TreeNode(9);
         node.right.left.left = new TreeNode(7);
         node.right.right = new TreeNode(11);
-        solution62.KthNode(node, 8);
+        node = solution62.KthNode(node, 1);
+        System.out.println(node.val);
     }
 }

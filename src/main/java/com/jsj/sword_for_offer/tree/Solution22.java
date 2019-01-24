@@ -1,8 +1,8 @@
 package com.jsj.sword_for_offer.tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * @author jsj
@@ -13,22 +13,19 @@ public class Solution22 {
     public ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
         if (root == null) return list;
-        Deque<TreeNode> deque1 = new LinkedList<>();
-        deque1.addLast(root);
-        TreeNode now;
-        for (Deque<TreeNode> deque2 = new LinkedList<>(), deque; !(deque1.isEmpty() && deque2.isEmpty()); ) {
-            if (deque1.isEmpty()) {
-                deque = deque1;
-                deque1 = deque2;
-                deque2 = deque;
-            }
-            now = deque1.pollFirst();
-            list.add(now.val);
-            if (now.left != null) {
-                deque2.addLast(now.left);
-            }
-            if (now.right != null) {
-                deque2.addLast(now.right);
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offerLast(root);
+        for (int size = 1; !deque.isEmpty(); size = deque.size()) {
+            TreeNode node;
+            for (int count = 0; count < size; count++) {
+                node = deque.pollFirst();
+                list.add(node.val);
+                if (node.left != null) {
+                    deque.offerLast(node.left);
+                }
+                if (node.right != null) {
+                    deque.offerLast(node.right);
+                }
             }
         }
         return list;

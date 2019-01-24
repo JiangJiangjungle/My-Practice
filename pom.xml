@@ -13,6 +13,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <version.slf4j>1.7.10</version.slf4j>
+        <cglib.version>3.2.5</cglib.version>
+        <fastjson.version>1.2.31</fastjson.version>
+        <druid.version>1.0.18</druid.version>
+        <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
+        <protostuff.version>1.4.0</protostuff.version>
     </properties>
 
     <dependencies>
@@ -26,24 +31,29 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.2.5</version>
+            <version>${cglib.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
-            <version>1.4.0</version>
+            <version>${protostuff.version}</version>
         </dependency>
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
-            <version>1.4.0</version>
+            <version>${protostuff.version}</version>
         </dependency>
 
     </dependencies>
