@@ -12,18 +12,19 @@ public class FastSort {
         int i = start, j = end - 1;
         if (i >= j) return num;
         int partition = num[i];
-        A:
-        while (i < j) {
-            while (num[j] >= partition) {
-                j--;
-                if (i == j) break A;
+        for (; i < j; ) {
+            for (; i < j; j--) {
+                if (num[j] < partition) {
+                    swap(num, i, j);
+                    break;
+                }
             }
-            swap(num, i, j);
-            while (i < j && num[i] <= partition) {
-                i++;
-                if (i == j) break A;
+            for (; i < j; i++) {
+                if (num[i] > partition) {
+                    swap(num, i, j);
+                    break;
+                }
             }
-            swap(num, i, j);
         }
         doPartition(num, start, i);
         doPartition(num, i + 1, end);

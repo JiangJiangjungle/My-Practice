@@ -9,33 +9,23 @@ public class MergeSort {
 
     private static int[] doMergeSort(int[] num, int start, int end) {
         if (end - start <= 1) return num;
-        if (start == end - 2) {
-            if (num[start] > num[start + 1]) swap(num, start, start + 1);
-            return num;
-        }
-        int partition = (start + end) / 2;
-        doMergeSort(num, start, partition);
-        doMergeSort(num, partition, end);
+        int mid = (start + end) / 2;
+        doMergeSort(num, start, mid);
+        doMergeSort(num, mid, end);
         int[] tmp = Arrays.copyOfRange(num, start, end);
-        for (int i = start, indexA = start, indexB = partition; i < end; i++) {
-            if (indexB >= end || indexA < partition && tmp[indexA - start] < tmp[indexB - start]) {
-                num[i] = tmp[indexA - start];
-                indexA++;
+        for (int i = 0, j = mid - start, index = start; index < end; index++) {
+            if (i == mid - start || j < tmp.length && tmp[i] > tmp[j]) {
+                num[index] = tmp[j];
+                j++;
             } else {
-                num[i] = tmp[indexB - start];
-                indexB++;
+                num[index] = tmp[i];
+                i++;
             }
         }
         return num;
     }
 
-    private static void swap(int[] num, int i, int j) {
-        int tmp = num[i];
-        num[i] = num[j];
-        num[j] = tmp;
-    }
-
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(sort(new int[]{5, 3})));
+        System.out.println(Arrays.toString(sort(new int[]{5,4,2,9,3,5})));
     }
 }
