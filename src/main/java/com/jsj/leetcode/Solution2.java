@@ -17,40 +17,33 @@ package com.jsj.leetcode;
  */
 public class Solution2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int count = 0;
-        int nowBit;
         ListNode head = null;
-        ListNode now = null;
-        ListNode next;
-        ListNode pointer1 = l1, pointer2 = l2;
-        for (; pointer1 != null || pointer2 != null || count != 0; ) {
-            nowBit = count;
-            if (pointer1 != null) {
-                nowBit += pointer1.val;
+        ListNode now;
+        ListNode last = head;
+        boolean tag = false;
+        for (int value = 0; tag || l1 != null || l2 != null; value = 0) {
+            if (tag) {
+                value++;
             }
-            if (pointer2 != null) {
-                nowBit += pointer2.val;
+            if (l1 != null) {
+                value += l1.val;
+                l1 = l1.next;
             }
-            if (nowBit >= 10) {
-                nowBit -= 10;
-                count = 1;
-            } else {
-                count = 0;
+            if (l2 != null) {
+                value += l2.val;
+                l2 = l2.next;
             }
+            if (tag = (value >= 10)) {
+                value -= 10;
+            }
+            now = new ListNode(value);
             if (head == null) {
-                head = new ListNode(nowBit);
-                now = head;
-            } else {
-                next = new ListNode(nowBit);
-                now.next = next;
-                now = next;
+                head = now;
+                last = head;
+                continue;
             }
-            if (pointer1 != null) {
-                pointer1 = pointer1.next;
-            }
-            if (pointer2 != null) {
-                pointer2 = pointer2.next;
-            }
+            last.next = now;
+            last = now;
         }
         return head;
     }

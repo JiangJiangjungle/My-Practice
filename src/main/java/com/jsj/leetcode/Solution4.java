@@ -17,38 +17,32 @@ package com.jsj.leetcode;
  * 则中位数是 2.0
  */
 public class Solution4 {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1.length == 0 || nums2.length == 0) {
-            if (nums2.length == 0) {
-                nums2 = nums1;
-            }
-            if ((1 == (nums2.length & 1))) {
-                return nums2.length == 1 ? nums2[0] : nums2[nums2.length >> 1];
+
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int index = (nums1.length + nums2.length);
+        boolean one = (index & 1) == 1;
+        index /= 2;
+        int low = 0, high = 0;
+        for (int i = 0, j = 0, count = -1; count < index; count++) {
+            low = high;
+            if (j == nums2.length || i < nums1.length && nums1[i] <= nums2[j]) {
+                high = nums1[i];
+                i++;
             } else {
-                return ((double) nums2[nums2.length >> 1] + nums2[-1 + nums2.length >> 1]) / 2;
+                high = nums2[j];
+                j++;
             }
         }
-        int count = 0;
-        int now1 = 0;
-        int now2 = 0;
-        int b = Math.min(nums1[0], nums2[0]);
-        int a = b;
-        while (count <= (nums1.length + nums2.length)>>1) {
-            if (now2 == nums2.length || now1 < nums1.length && nums1[now1] < nums2[now2]) {
-                a = b;
-                b = nums1[now1];
-                now1++;
-            } else {
-                a = b;
-                b = nums2[now2];
-                now2++;
-            }
-            count++;
-        }
-        if (1 == ((nums1.length + nums2.length) & 1)) {
-            return b;
+        if (one) {
+            return high;
         } else {
-            return ((double) a + b) / 2;
+            return ((double) (low + high)) / 2;
         }
+    }
+
+    public static void main(String[] args) {
+        int[] num1 = new int[]{1, 3};
+        int[] num2 = new int[]{2, 2};
+        System.out.println(findMedianSortedArrays(num1, num2));
     }
 }

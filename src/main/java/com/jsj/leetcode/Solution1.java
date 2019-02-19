@@ -17,33 +17,21 @@ import java.util.Map;
  */
 public class Solution1 {
     public int[] twoSum(int[] nums, int target) {
-        if (nums == null) {
+        if (nums == null || nums.length == 0) {
             return null;
         }
-        Map<Integer, Integer> map = new HashMap<>(nums.length);
-        int record = -1;
+        Map<Integer, Integer> records = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] << 1 == target && map.get(nums[i]) != null) {
-                record = i;
-            } else {
-                map.put(nums[i], i);
-            }
+            records.put(nums[i], i);
         }
-        int now;
-        Integer another;
+        Integer index;
+        int value;
         for (int i = 0; i < nums.length; i++) {
-            now = nums[i];
-            if (now << 1 == target) {
-                if (record != -1) {
-                    return new int[]{i, record};
-                }
-                continue;
-            }
-            if ((another = map.get(target - now)) != null) {
-                return new int[]{i, another};
+            value = target - nums[i];
+            if ((index = records.get(value)) != null && index != i) {
+                return new int[]{i, index};
             }
         }
         return null;
     }
-
 }
