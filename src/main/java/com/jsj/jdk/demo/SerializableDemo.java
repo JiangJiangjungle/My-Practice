@@ -9,6 +9,9 @@ import io.protostuff.runtime.RuntimeSchema;
 import java.io.*;
 import java.util.Arrays;
 
+/**
+ * 序列化测试
+ */
 public class SerializableDemo implements Serializable {
     private static String string1 = "can not serialize";
 

@@ -1,6 +1,7 @@
-package com.jsj.leetcode;
+package com.jsj.leetcode.important;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * @author jsj
@@ -36,25 +37,22 @@ import java.util.Stack;
  */
 public class Solution20 {
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
         char ch;
         for (int i = 0; i < s.length(); i++) {
             ch = s.charAt(i);
-            if (ch == '(' || ch == '[' || ch == '{') {
-                stack.push(s.charAt(i));
-                continue;
-            }
-            if (stack.empty()){
+            if (ch == ')' || ch == ']' || ch == '}') {
+                if (!deque.isEmpty()) {
+                    char ch2 = deque.pollLast();
+                    if (ch2 == '(' && ch == ')' || ch2 == '[' && ch == ']' || ch2 == '{' && ch == '}') {
+                        continue;
+                    }
+                }
                 return false;
-            }
-            if (ch == ')' && '(' != stack.pop()) {
-                return false;
-            } else if (ch == ']' && '[' != stack.pop()) {
-                return false;
-            } else if (ch == '}' && '{' != stack.pop()) {
-                return false;
+            } else {
+                deque.addLast(ch);
             }
         }
-        return stack.empty();
+        return deque.isEmpty();
     }
 }

@@ -1,4 +1,4 @@
-package com.jsj.leetcode;
+package com.jsj.leetcode.important;
 
 import java.util.Arrays;
 
@@ -14,15 +14,15 @@ import java.util.Arrays;
 public class Solution16 {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
-        int closeNum = nums[0]+nums[1]+nums[2];
+        int close = Integer.MAX_VALUE;
         int now;
         A:
         for (int x = 0; x < nums.length - 2; x++) {
             for (int i = x + 1, j = nums.length - 1; i < j; ) {
                 now = nums[x] + nums[i] + nums[j];
-                if (Math.abs(closeNum-target) >Math.abs(now-target) ) {
-                    closeNum = now;
-                    if (closeNum == target) {
+                if (Math.abs(close - target) > Math.abs(now - target)) {
+                    close = now;
+                    if (close == target) {
                         break A;
                     }
                 }
@@ -33,6 +33,6 @@ public class Solution16 {
                 }
             }
         }
-        return closeNum;
+        return close;
     }
 }

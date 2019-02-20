@@ -1,6 +1,8 @@
-package com.jsj.leetcode;
+package com.jsj.leetcode.important;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author jsj
@@ -22,9 +24,7 @@ public class Solution15 {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> list;
         Arrays.sort(nums);
-        int index;
-
-        for (int i = 0; i < nums.length - 1; i++) {
+        for (int index, i = 0; i < nums.length - 1; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) continue;
             for (int j = i + 1; j < nums.length; j++) {
                 index = Arrays.binarySearch(nums, j + 1, nums.length, -1 * (nums[i] + nums[j]));
