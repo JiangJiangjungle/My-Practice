@@ -31,9 +31,6 @@ public class Solution14 {
         for (String str : strs) {
             minLength = minLength > str.length() ? str.length() : minLength;
         }
-        if (minLength == 0) {
-            return "";
-        }
         A:
         for (int x = 0; x < minLength; x++) {
             now = strs[0].charAt(x);
