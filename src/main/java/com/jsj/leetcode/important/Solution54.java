@@ -30,37 +30,28 @@ import java.util.List;
  */
 public class Solution54 {
     public List<Integer> spiralOrder(int[][] matrix) {
-        if (matrix.length == 0 || matrix[0].length == 0) return new ArrayList<>();
-        List<Integer> list = new ArrayList<>(matrix.length * matrix[0].length);
-        int boundX = matrix.length - 1;
-        int boundY = matrix[0].length - 1;
-        int count = 0;
-        while (count <= boundX && count <= boundY) {
-            for (int y = count; y <= boundY; y++) {
-                list.add(matrix[count][y]);
+        List<Integer> list = new ArrayList<>();
+        if (matrix.length == 0 || matrix[0].length == 0) return list;
+        for (int boundX = matrix.length - 1, boundY = matrix[0].length - 1, count = 0; count <= boundX && count <= boundY; count++, boundX--, boundY--) {
+            for (int i = count; i <= boundY; i++) {
+                list.add(matrix[count][i]);
             }
-            for (int x = count + 1; x <= boundX; x++) {
-                list.add(matrix[x][boundY]);
+            for (int i = count + 1; i <= boundX; i++) {
+                list.add(matrix[i][boundY]);
             }
-            for (int y = boundY - 1; count < boundX && y >= count; y--) {
-                list.add(matrix[boundX][y]);
+            for (int i = boundY - 1; count < boundX && i >= count; i--) {
+                list.add(matrix[boundX][i]);
             }
-            for (int x = boundX - 1; count < boundY && x > count; x--) {
-                list.add(matrix[x][count]);
+            for (int i = boundX - 1; count < boundY && i > count; i--) {
+                list.add(matrix[i][count]);
             }
-            boundX--;
-            boundY--;
-            count++;
         }
         return list;
     }
 
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
-                {1},
-                {2},
-                {3},
-                {4}};
+                {1}};
         List<Integer> list = new Solution54().spiralOrder(matrix);
         if (list != null) {
             System.out.println(Arrays.toString(list.toArray()));

@@ -33,23 +33,22 @@ public class Solution61 {
     }
 
     public ListNode rotateRight(ListNode head, int k) {
-        if (head == null || head.next == null || k == 0) return head;
-        ListNode now;
+        if (head == null || head.next == null) return head;
         int len = 0;
-        for (now = head; now != null; now = now.next, len++) {
+        ListNode last = head;
+        for (ListNode now = head; now != null; now = now.next) {
+            len++;
+            if (now.next == null) {
+                last = now;
+            }
         }
-        int i = k % len;
-        if (i == 0) return head;
-        now = head;
-        for (int count = len - i - 1; count > 0; count--) {
-            now = now.next == null ? head : now.next;
+        k = k % len;
+        last.next = head;
+        for (int i = 0, offset = len - k; k != 0 && i < offset; i++) {
+            last = last.next;
         }
-        ListNode newHead = now.next == null ? head : now.next;
-        now.next = null;
-        now = newHead;
-        for (; now.next != null; now = now.next) {
-        }
-        now.next = head;
+        ListNode newHead = last.next;
+        last.next = null;
         return newHead;
     }
 
@@ -57,7 +56,7 @@ public class Solution61 {
         ListNode head = new ListNode(1);
         head.next = new ListNode(2);
         head.next.next = new ListNode(3);
-        head = new Solution61().rotateRight(head, 2);
+        head = new Solution61().rotateRight(head, 3);
         while (head != null) {
             System.out.println(head.val);
             head = head.next;

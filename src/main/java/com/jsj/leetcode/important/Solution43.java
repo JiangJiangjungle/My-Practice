@@ -1,7 +1,5 @@
 package com.jsj.leetcode.important;
 
-import java.util.Arrays;
-
 /**
  * @author jsj
  * @since 2018-12-13
@@ -23,70 +21,29 @@ import java.util.Arrays;
  * 不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。
  */
 public class Solution43 {
+
     public String multiply(String num1, String num2) {
-        char[] res = new char[num1.length() + num2.length()];
-        char[] tmps = new char[num1.length() + 1];
-        Arrays.fill(res, '0');
-        Arrays.fill(tmps, '0');
-        int bit1;
-        for (int j = 0; j < num2.length(); j++) {
-            bit1 = num2.charAt(num2.length() - 1 - j) - '0';
-            multiply(tmps, num1, bit1);
-            addToArray(res, tmps, j);
-        }
-        int lastIndex = 0;
-        for (; lastIndex < res.length; lastIndex++) {
-            if (res[lastIndex] != '0') break;
-        }
-        if (lastIndex == res.length && res[lastIndex - 1] == '0') return "0";
-        return new String(res, lastIndex, res.length - lastIndex);
-    }
-
-    private void multiply(char[] tmps, String num1, int bit) {
-        int now;
-        int high = 0;
+        char[] value = new char[num1.length() + num2.length()];
         for (int i = num1.length() - 1; i >= 0; i--) {
-            now = bit * (num1.charAt(i) - '0');
-            if (high > 0) {
-                now += high;
-            }
-            if (now >= 10) {
-                high = now / 10;
-                now %= 10;
-            } else {
-                high = 0;
-            }
-            tmps[i + 1] = (char) (now + '0');
-            if (i == 0) {
-                tmps[0] = high > 0 ? (char) (high + '0') : '0';
+            for (int j = num2.length() - 1; j >= 0; j--) {
+                value[i + j + 1] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
             }
         }
-    }
-
-    private void addToArray(char[] res, char[] tmps, int offset) {
-        int now;
-        boolean tag = false;
-        offset = res.length - offset - 1;
-        int count = tmps.length - 1;
-        while (count >= 0) {
-            now = tmps[count] + res[offset] - '0' - '0';
-            count--;
-            if (tag) {
-                now++;
-            }
-            if (now >= 10) {
-                tag = true;
-                now -= 10;
-            } else {
-                tag = false;
-            }
-            res[offset] = (char) (now + '0');
-            offset--;
+        int tag = 0;
+        for (int i = value.length - 1, tmp; i >= 0; i--) {
+            tmp = value[i] + tag;
+            tag = tmp / 10;
+            value[i] = (char) (tmp % 10 + '0');
         }
+        int offset = 0;
+        for (; offset < value.length-1; offset++) {
+            if (value[offset] != '0') break;
+        }
+        return new String(value, offset, value.length - offset);
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution43().multiply("237",
+        System.out.println(new Solution43().multiply("0",
                 "284"));
     }
 }

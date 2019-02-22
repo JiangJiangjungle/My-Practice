@@ -18,41 +18,28 @@ import java.util.Arrays;
  * ]
  */
 public class Solution59 {
-    public int[][] generateMatrix(int n) {
+    public int[][] generateMatrix2(int n) {
         int[][] matrix = new int[n][n];
-        int count = 0;
-        int value = 0;
-        int bound;
-        while (count <= (n - 1) / 2) {
-            bound = n - 1 - count;
-            if (count == bound) {
-                value++;
-                matrix[count][count] = value;
-                break;
+        int num=1;
+        for (int boundX = matrix.length - 1, boundY = matrix[0].length - 1, count = 0; count <= boundX && count <= boundY; count++, boundX--, boundY--) {
+            for (int i = count; i <= boundY; i++) {
+                matrix[count][i] = num++;
             }
-            for (int i = count; i < bound; i++) {
-                value++;
-                matrix[count][i] = value;
+            for (int i = count + 1; i <= boundX; i++) {
+                matrix[i][boundY] = num++;
             }
-            for (int i = count; i < bound; i++) {
-                value++;
-                matrix[i][bound] = value;
+            for (int i = boundY - 1; count < boundX && i >= count; i--) {
+                matrix[boundX][i] = num++;
             }
-            for (int i = count; i < bound; i++) {
-                value++;
-                matrix[bound][bound - i + count] = value;
+            for (int i = boundX - 1; count < boundY && i > count; i--) {
+                matrix[i][count] = num++;
             }
-            for (int i = count; i < bound; i++) {
-                value++;
-                matrix[bound - i + count][count] = value;
-            }
-            count++;
         }
         return matrix;
     }
 
     public static void main(String[] args) {
-        int[][] matrix = new Solution59().generateMatrix(5);
+        int[][] matrix = new Solution59().generateMatrix2(5);
         for (int i = 0; i < matrix.length; i++) {
             System.out.println(Arrays.toString(matrix[i]));
         }

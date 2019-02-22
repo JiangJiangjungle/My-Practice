@@ -1,6 +1,5 @@
 package com.jsj.company;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ScannerDemo {
@@ -9,8 +8,14 @@ public class ScannerDemo {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             System.out.println(str);
-            String[] strs = str.split(" ");
-            System.out.println(Arrays.toString(strs));
         }
+    }
+
+    public static int[] trans(String[] strArray) {
+        int[] nums = new int[strArray.length];
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = Integer.parseInt(strArray[i]);
+        }
+        return nums;
     }
 }
