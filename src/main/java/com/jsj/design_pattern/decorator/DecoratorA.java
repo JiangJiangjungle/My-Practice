@@ -1,8 +1,8 @@
 package com.jsj.design_pattern.decorator;
 
-public class AbstractDecoratorA extends AbstractDecorator {
+public class DecoratorA extends AbstractDecorator {
 
-    public AbstractDecoratorA(Component component) {
+    public DecoratorA(Component component) {
         super(component);
     }
 
