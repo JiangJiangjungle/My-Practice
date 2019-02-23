@@ -10,6 +10,8 @@ package com.jsj.leetcode.important;
  * 输入: "babad"
  * 输出: "bab"
  * 注意: "aba" 也是一个有效答案。
+ * <p>
+ * 思路：中间扩展法，（xxxaxxx）或者（xxxxxx）形式
  */
 public class Solution5 {
     public static String longestPalindrome(String s) {

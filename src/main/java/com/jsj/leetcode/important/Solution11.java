@@ -10,6 +10,8 @@ package com.jsj.leetcode.important;
  * <p>
  * 输入: [1,8,6,2,5,4,8,3,7]
  * 输出: 49
+ * <p>
+ * 思路：两端指针向内移动
  */
 public class Solution11 {
     public int maxArea(int[] height) {

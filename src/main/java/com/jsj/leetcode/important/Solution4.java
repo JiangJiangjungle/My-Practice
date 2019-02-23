@@ -15,6 +15,8 @@ package com.jsj.leetcode.important;
  * nums2 = [2]
  * <p>
  * 则中位数是 2.0
+ * <p>
+ * 思路：利用二分分成4份，两两组成高低数组，低数组的最大值+高数组的最小值等于中位数
  */
 public class Solution4 {
 
