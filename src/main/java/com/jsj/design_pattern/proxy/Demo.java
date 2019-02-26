@@ -3,7 +3,7 @@ package com.jsj.design_pattern.proxy;
 public class Demo {
 
     public static void main(String[] args) {
-        TargetImplement targetImplement = new TargetImplement();
+        Target targetImplement = new TargetImplement();
         Object object = JDKProxy.bind(targetImplement);
         Target target1 = (Target) object;
         target1.method();

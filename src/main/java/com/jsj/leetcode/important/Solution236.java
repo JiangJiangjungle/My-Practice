@@ -29,6 +29,7 @@ package com.jsj.leetcode.important;
  * p、q 为不同节点且均存在于给定的二叉树中。
  * <p>
  * 思路：从左右子节点开始找p和q的公共祖先，返回null说明不存在祖先，都返回不为null说明分别返回了p和q，则root为最近公共祖先
+ *
  */
 public class Solution236 {
 

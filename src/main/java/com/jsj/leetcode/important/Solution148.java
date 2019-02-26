@@ -11,6 +11,8 @@ package com.jsj.leetcode.important;
  * <p>
  * 输入: -1->5->3->4->0
  * 输出: -1->0->3->4->5
+ * <p>
+ * 思路：归并排序，链表中点可以用一组快慢指针确定
  */
 public class Solution148 {
     public ListNode sortList(ListNode head) {

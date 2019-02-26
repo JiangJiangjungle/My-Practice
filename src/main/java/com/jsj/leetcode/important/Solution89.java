@@ -33,10 +33,12 @@ import java.util.List;
  * 解释: 我们定义格雷编码序列必须以 0 开头。
  * 给定编码总位数为 n 的格雷编码序列，其长度为 2n。当 n = 0 时，长度为 20 = 1。
  * 因此，当 n = 0 时，其格雷编码序列为 [0]。
+ * <p>
+ * 思路：第一个码：000^000=000 ；第二个码：001^000 = 001；第三个码：010^001=011；第四个码：011^001=010以此类推
  */
 public class Solution89 {
     public List<Integer> grayCode(int n) {
-        int len = 1<<n;
+        int len = 1 << n;
         List<Integer> ret = new ArrayList<>(len);
         for (int i = 0; i < len; ++i) {
             ret.add(i ^ i >> 1);

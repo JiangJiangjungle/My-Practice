@@ -11,6 +11,8 @@ package com.jsj.leetcode.important;
  * 输出: false
  * 解释: 如果堆中有 4 块石头，那么你永远不会赢得比赛；
  * 因为无论你拿走 1 块、2 块 还是 3 块石头，最后一块石头总是会被你的朋友拿走。
+ *
+ * 思路：找规律，找到周期函数的周期。
  */
 public class Solution292 {
     public boolean canWinNim(int n) {

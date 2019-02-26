@@ -53,9 +53,9 @@ public class Solution8 {
             } else if (started) {
                 end = i;
                 break;
-            }else if (now == ' '||now == '-' || now == '+') {
-                if (!metZero &&sigIndex == -1) {
-                    if (now == '-' || now == '+'){
+            } else if (now == ' ' || now == '-' || now == '+') {
+                if (!metZero && sigIndex == -1) {
+                    if (now == '-' || now == '+') {
                         sigIndex = i;
                     }
                     continue;
