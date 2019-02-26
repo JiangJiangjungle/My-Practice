@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 输入: nums = [4,5,6,7,0,1,2], target = 3
  * 输出: -1
  *
- * 思路：每次分成两部分：有序数组+选择数组，对有序数组进行二分搜索，旋转数组继续拆分
+ * 思路：因为每次不存在重复的元素，所以分成两部分：有序数组+旋转数组，对有序数组进行二分搜索，旋转数组继续拆分
  */
 public class Solution33 {
     public int search(int[] nums, int target) {

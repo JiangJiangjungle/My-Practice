@@ -1,9 +1,7 @@
 package com.jsj.sword_for_offer.array;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * @author jsj

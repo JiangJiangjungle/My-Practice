@@ -1,7 +1,5 @@
 package com.jsj.sword_for_offer.array;
 
-import java.util.Arrays;
-
 /**
  * @author jsj
  * @since 2018-5-12

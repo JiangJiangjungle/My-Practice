@@ -11,25 +11,34 @@ import java.util.PriorityQueue;
  * 例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}；
  * 针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
  * {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
- *
- * 思路：最大堆
+ * <p>
+ * 思路：双指针法,时间复杂度O(n)
  */
 public class Solution64 {
     public ArrayList<Integer> maxInWindows(int[] num, int size) {
-        ArrayList<Integer> result = new ArrayList<>();
-        if (num.length == 0 || size <= 0) return result;
-        PriorityQueue<Integer> heap = new PriorityQueue<>(size, (o1, o2) -> o2 - o1);
-        for (int i = 0; i < num.length; i++) {
-            if (heap.size() == size) {
-                heap.remove(num[i - size]);
+        ArrayList<Integer> list = new ArrayList<>();
+        if (size == 0||size>num.length) return list;
+        //low作为下标始终指向当前窗口最大值
+        for (int low = 0, high = 0; high < num.length; high++) {
+            //若最右元素为新的最大值，则low指针跳至high;
+            if (num[low] <= num[high]) {
+                low = high;
             }
-            heap.add(num[i]);
-            if (heap.size() < size) {
-                continue;
+            //需要移除的最左元素为最大值
+            if (high - low == size) {
+                //找到当前最大值，用low指针作为下标
+                low++;
+                for (int tmp = low + 1; tmp < high; tmp++) {
+                    if (num[tmp] >= num[low]) {
+                        low = tmp;
+                    }
+                }
             }
-            result.add(heap.peek());
+            if (high>=size-1) {
+                list.add(num[low]);
+            }
         }
-        return result;
+        return list;
     }
 
     public static void main(String[] args) {
