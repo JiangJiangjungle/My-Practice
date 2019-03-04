@@ -14,29 +14,36 @@ package com.jsj.leetcode.important;
  * 思路：中间扩展法，（xxxaxxx）或者（xxxxxx）形式
  */
 public class Solution5 {
-    public static String longestPalindrome(String s) {
+
+    public static String longestPalindrome2(String s) {
         if (s == null || s.length() < 1) {
             return "";
         }
-        int start = 0, end = 0;
-        for (int index = 0; index < s.length(); index++) {
-            for (int low = index, high = index; low >= 0 && high < s.length() && s.charAt(low) == s.charAt(high); low--, high++) {
-                if (high - low > end - start) {
-                    start = low;
-                    end = high;
+        int low = 0, high = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int x = i - 1, y = i + 1; x >= 0 && y < s.length(); x--, y++) {
+                if (s.charAt(x) != s.charAt(y)) {
+                    break;
+                }
+                if (y - x > high - low) {
+                    high = y;
+                    low = x;
                 }
             }
-            for (int low = index, high = index + 1; low >= 0 && high < s.length() && s.charAt(low) == s.charAt(high); low--, high++) {
-                if (high - low > end - start) {
-                    start = low;
-                    end = high;
+            for (int x = i, y = i + 1; x >= 0 && y < s.length(); x--, y++) {
+                if (s.charAt(x) != s.charAt(y)) {
+                    break;
+                }
+                if (y - x > high - low) {
+                    high = y;
+                    low = x;
                 }
             }
         }
-        return s.substring(start, end + 1);
+        return s.substring(low, high + 1);
     }
 
     public static void main(String[] args) {
-        System.out.println(longestPalindrome("daead"));
+        System.out.println(longestPalindrome2("aead"));
     }
 }

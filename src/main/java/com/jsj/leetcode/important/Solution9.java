@@ -21,29 +21,21 @@ package com.jsj.leetcode.important;
  * 解释: 从右向左读, 为 01 。因此它不是一个回文数。
  */
 public class Solution9 {
-    public boolean isPalindrome(int x) {
-        if (x < 10) {
-            return x >= 0;
+
+    public static boolean isPalindrome(int x) {
+        if (x < 0) return false;
+        int[] bits = new int[32];
+        int count = 0;
+        for (; x > 0; x /= 10, count++) {
+            bits[count] = x % 10;
         }
-        int bits = 0;
-        for (int copy = x; copy != 0; bits++) {
-            copy = copy / 10;
-        }
-        int a;
-        byte[] temp = new byte[bits / 2];
-        for (int i = 0; x != 0; x = x / 10, i++) {
-            a = x % 10;
-            if (i < bits / 2) {
-                temp[i] = (byte) a;
-                continue;
-            }
-            if (i == bits / 2 && 1 == (bits & 1)) {
-                continue;
-            }
-            if ((byte) a != temp[bits - 1 - i]) {
-                return false;
-            }
+        for (int low = 0, high = count-1; low < high; low++, high--) {
+            if (bits[low] != bits[high]) return false;
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(121));
     }
 }

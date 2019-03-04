@@ -23,6 +23,7 @@ public class CountDownLatchDemo {
             }
             System.out.println(Thread.currentThread().getName() + " done!");
             countDownLatch.countDown();
+            System.out.println(Thread.currentThread().getName() + "在调用完countDownLatch.countDown();以后不会被阻塞");
         }
     }
 

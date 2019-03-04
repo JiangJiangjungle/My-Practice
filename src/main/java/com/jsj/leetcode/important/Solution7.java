@@ -19,23 +19,23 @@ package com.jsj.leetcode.important;
  * 输出: 21
  */
 public class Solution7 {
-    public int reverse(int x) {
-        long res = 0L;
-        int sig = 1;
+
+    public static int reverse(int x) {
+        int tag = 1;
         if (x < 0) {
-            sig = -1;
-            x = sig * x;
+            tag = -1;
+            x *= tag;
         }
-        int a;
-        for (; x > 0; x = x / 10) {
-            a = x % 10;
-            if (!(res == 0 && a == 0)) {
-                res = res * 10 + a;
-            }
+        int val = 0;
+        for (int tmp; x > 0; x = x / 10) {
+            tmp = x % 10;
+            val *= 10;
+            val += tmp;
         }
-        if (res > Integer.MAX_VALUE) {
-            return 0;
-        }
-        return sig * (int) res;
+        return tag * val;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(reverse(-1030));
     }
 }

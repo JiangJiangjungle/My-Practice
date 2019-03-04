@@ -22,27 +22,42 @@ import java.util.List;
 public class Solution15 {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> list;
         Arrays.sort(nums);
-        for (int index, i = 0; i < nums.length - 1; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            for (int j = i + 1; j < nums.length; j++) {
-                index = Arrays.binarySearch(nums, j + 1, nums.length, -1 * (nums[i] + nums[j]));
-                if (index < 0) {
-                    continue;
+        for (int z, high = nums.length-1, x = 0; x < nums.length - 1; x++) {
+            if (x > 0 && nums[x] == nums[x - 1]) continue;
+            for (int y = x + 1; y < high; y++) {
+                if (y > x + 1 && nums[y] == nums[y - 1]) continue;
+                z = binarySearch(nums, y + 1, nums.length, -1 * (nums[x] + nums[y]));
+                if (z > -1) {
+                    res.add(Arrays.asList(nums[x], nums[y], nums[z]));
+                    high = z;
                 }
-                list = new ArrayList<>();
-                list.add(nums[i]);
-                list.add(nums[j]);
-                list.add(nums[index]);
-                res.add(list);
-                index = j;
-                while (index + 1 < nums.length && nums[index + 1] == nums[index]) {
-                    index++;
-                }
-                j = index;
             }
         }
         return res;
+    }
+
+    private int binarySearch(int[] nums, int low, int high, int target) {
+        high--;
+        int val =-1;
+        for (int mid; low <= high; ) {
+            mid = (low + high) / 2;
+            if (nums[mid] == target) {
+                val=mid;
+                break;
+            } else if (nums[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return val>-1?val:-1;
+    }
+
+    public static void main(String[] args) {
+        List<List<Integer>>lists = new Solution15().threeSum(new int[]{-1,0,1,2,-1,-4});
+        for (List<Integer> list:lists){
+            System.out.println(Arrays.toString(list.toArray()));
+        }
     }
 }
