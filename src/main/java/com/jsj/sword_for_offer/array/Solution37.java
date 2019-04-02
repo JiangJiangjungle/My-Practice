@@ -9,42 +9,25 @@ package com.jsj.sword_for_offer.array;
  */
 public class Solution37 {
     public int GetNumberOfK(int[] array, int k) {
-        for (int low = 0, high = array.length - 1, mid; low <= high; ) {
+        return GetNumberOfK(array, k, 0, array.length - 1);
+    }
+
+    private int GetNumberOfK(int[] array, int k, int low, int high) {
+        int val = 0;
+        for (int mid; low <= high; ) {
             mid = (low + high) / 2;
             if (array[mid] == k) {
-                int lowBound = findBound(array, low, mid, k, true);
-                int highBound = findBound(array, mid, high, k, false);
-                return highBound - lowBound + 1;
+                val++;
+                val += GetNumberOfK(array, k, low, mid - 1);
+                val += GetNumberOfK(array, k, mid + 1, high);
+                break;
             } else if (array[mid] > k) {
                 high = mid - 1;
             } else {
                 low = mid + 1;
             }
         }
-        return 0;
-    }
-
-    private int findBound(int[] array, int low, int high, int k, boolean lowBound) {
-        for (int mid; low <= high; ) {
-            mid = (low + high) / 2;
-            if (array[mid] != k) {
-                if (lowBound) {
-                    low = mid + 1;
-                } else {
-                    high = mid - 1;
-                }
-                continue;
-            }
-            if (low == high) return mid;
-            if (lowBound) {
-                if (low == mid || array[mid - 1] != k) return mid;
-                high = mid - 1;
-            } else {
-                if (array[mid + 1] != k) return mid;
-                low = mid + 1;
-            }
-        }
-        return -1;
+        return val;
     }
 
     public static void main(String[] args) {

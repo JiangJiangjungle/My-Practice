@@ -18,7 +18,7 @@ public class Demo {
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1000), new NamedThreadFactory());
         threadPool.execute(new Consumer(queue));
         threadPool.execute(new Consumer(queue));
-        threadPool.execute(new Productor(queue,20));
-        threadPool.execute(new Productor(queue,20));
+        threadPool.execute(new Productor(queue, 20));
+        threadPool.execute(new Productor(queue, 20));
     }
 }

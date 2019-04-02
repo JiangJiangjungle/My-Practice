@@ -36,13 +36,13 @@ public class Solution34 {
                         if (start == left || nums[start - 1] != target) {
                             break;
                         }
-                        right2 = start-1;
+                        right2 = start - 1;
                     } else {
                         if (nums[start + 1] == target) {
                             start++;
                             break;
                         }
-                        left2 = start+1;
+                        left2 = start + 1;
                     }
                 }
                 int end = right;
@@ -52,13 +52,13 @@ public class Solution34 {
                         if (end == right || nums[end + 1] != target) {
                             break;
                         }
-                        left2 = end+1;
+                        left2 = end + 1;
                     } else {
                         if (nums[end - 1] == target) {
                             end--;
                             break;
                         }
-                        right2 = end-1;
+                        right2 = end - 1;
                     }
                 }
                 return new int[]{start, end};
@@ -73,6 +73,6 @@ public class Solution34 {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution34().searchRange(new int[]{0,0,1,2,3,3,4}, 2)));
+        System.out.println(Arrays.toString(new Solution34().searchRange(new int[]{0, 0, 1, 2, 3, 3, 4}, 2)));
     }
 }

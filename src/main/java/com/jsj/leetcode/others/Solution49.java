@@ -85,7 +85,7 @@ public class Solution49 {
     }
 
     public static void main(String[] args) {
-        String[] strings = new String[]{"", "bac","aaa",""};
+        String[] strings = new String[]{"", "bac", "aaa", ""};
         List<List<String>> list = new Solution49().groupAnagrams(strings);
         if (list != null) {
             System.out.println("!");

@@ -10,31 +10,29 @@ import java.util.Arrays;
  * 例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
  * <p>
  * 与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
- *
- * 思路：排序后两端指针法
+ * <p>
+ * 思路：时间复杂度O(N^2)的方法，数组排序，第一个指针从0开始，每右移1格，开始循环：第二个指针从下一位开始右移，第三个指针从尾部左移，找和的最小值。
  */
 public class Solution16 {
+
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
-        int close = Integer.MAX_VALUE;
-        int now;
-        A:
-        for (int x = 0; x < nums.length - 2; x++) {
-            for (int i = x + 1, j = nums.length - 1; i < j; ) {
-                now = nums[x] + nums[i] + nums[j];
-                if (Math.abs(close - target) > Math.abs(now - target)) {
-                    close = now;
-                    if (close == target) {
-                        break A;
+        int val = Integer.MAX_VALUE;
+        for (int tmp, x = 0; x < nums.length - 2; x++) {
+            for (int y = x + 1, z = nums.length - 1; y < z; ) {
+                tmp = nums[x] + nums[y] + nums[z];
+                if (Math.abs(tmp - target) < Math.abs(val - target)) {
+                    val = tmp;
+                    if (val == target) {
+                        return val;
                     }
                 }
-                if (now > target) {
-                    j--;
-                } else {
-                    i++;
+                if (tmp > target) {
+                    z--;
                 }
+                y++;
             }
         }
-        return close;
+        return val;
     }
 }

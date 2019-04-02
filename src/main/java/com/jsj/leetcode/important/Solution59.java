@@ -20,19 +20,39 @@ import java.util.Arrays;
 public class Solution59 {
     public int[][] generateMatrix2(int n) {
         int[][] matrix = new int[n][n];
-        int num=1;
-        for (int boundX = matrix.length - 1, boundY = matrix[0].length - 1, count = 0; count <= boundX && count <= boundY; count++, boundX--, boundY--) {
-            for (int i = count; i <= boundY; i++) {
-                matrix[count][i] = num++;
+        int num = 1;
+//        for (int boundX = matrix.length - 1, boundY = matrix[0].length - 1, count = 0; count <= boundX && count <= boundY; count++, boundX--, boundY--) {
+//            for (int i = count; i <= boundY; i++) {
+//                matrix[count][i] = num++;
+//            }
+//            for (int i = count + 1; i <= boundX; i++) {
+//                matrix[i][boundY] = num++;
+//            }
+//            for (int i = boundY - 1; count < boundX && i >= count; i--) {
+//                matrix[boundX][i] = num++;
+//            }
+//            for (int i = boundX - 1; count < boundY && i > count; i--) {
+//                matrix[i][count] = num++;
+//            }
+//        }
+        for (int now = 0, endX = matrix.length - 1, endY = matrix[0].length - 1; now <= endX && now <= endY; endX--, endY--, now++) {
+            for (int i = now; i <= endY; i++) {
+                matrix[now][i] = num++;
             }
-            for (int i = count + 1; i <= boundX; i++) {
-                matrix[i][boundY] = num++;
+            for (int i = now + 1; i < endX; i++) {
+                matrix[i][endY] = num++;
             }
-            for (int i = boundY - 1; count < boundX && i >= count; i--) {
-                matrix[boundX][i] = num++;
+            if (endX <= now) {
+                continue;
             }
-            for (int i = boundX - 1; count < boundY && i > count; i--) {
-                matrix[i][count] = num++;
+            for (int i = endY; i >= now; i--) {
+                matrix[endX][i] = num++;
+            }
+            if (endY <= now) {
+                continue;
+            }
+            for (int i = endX - 1; i > now; i--) {
+                matrix[i][now] = num++;
             }
         }
         return matrix;

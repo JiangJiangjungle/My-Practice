@@ -30,20 +30,25 @@ import java.util.List;
  */
 public class Solution54 {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> list = new ArrayList<>();
-        if (matrix.length == 0 || matrix[0].length == 0) return list;
-        for (int boundX = matrix.length - 1, boundY = matrix[0].length - 1, count = 0; count <= boundX && count <= boundY; count++, boundX--, boundY--) {
-            for (int i = count; i <= boundY; i++) {
-                list.add(matrix[count][i]);
+        List<Integer> list = new ArrayList<>(matrix.length * matrix[0].length);
+        for (int now = 0, endX = matrix.length - 1, endY = matrix[0].length - 1; now <= endX && now <= endY; endX--, endY--, now++) {
+            for (int i = now; i <= endY; i++) {
+                list.add(matrix[now][i]);
             }
-            for (int i = count + 1; i <= boundX; i++) {
-                list.add(matrix[i][boundY]);
+            for (int i = now + 1; i < endX; i++) {
+                list.add(matrix[i][endY]);
             }
-            for (int i = boundY - 1; count < boundX && i >= count; i--) {
-                list.add(matrix[boundX][i]);
+            if (endX <= now) {
+                continue;
             }
-            for (int i = boundX - 1; count < boundY && i > count; i--) {
-                list.add(matrix[i][count]);
+            for (int i = endY; i >= now; i--) {
+                list.add(matrix[endX][i]);
+            }
+            if (endY <= now) {
+                continue;
+            }
+            for (int i = endX - 1; i > now; i--) {
+                list.add(matrix[i][now]);
             }
         }
         return list;
@@ -51,7 +56,8 @@ public class Solution54 {
 
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
-                {1}};
+                {1, 3},
+                {2, 4}};
         List<Integer> list = new Solution54().spiralOrder(matrix);
         if (list != null) {
             System.out.println(Arrays.toString(list.toArray()));

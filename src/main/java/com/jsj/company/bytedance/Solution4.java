@@ -35,7 +35,7 @@ public class Solution4 {
             if (tmp == 0) {
                 deque.addLast(bit);
                 count = count == 0 ? 2 : count * 2;
-                if (count-1 >= k) {
+                if (count - 1 >= k) {
                     for (; k != 0; ) {
                         y += (k & 1) << deque.pollFirst();
                         k = k >> 1;

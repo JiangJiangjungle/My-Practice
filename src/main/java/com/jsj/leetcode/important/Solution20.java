@@ -1,8 +1,5 @@
 package com.jsj.leetcode.important;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * @author jsj
  * @since 2018-11-27
@@ -36,23 +33,30 @@ import java.util.Deque;
  * 输出: true
  */
 public class Solution20 {
-    public boolean isValid(String s) {
-        Deque<Character> deque = new ArrayDeque<>();
-        char ch;
+    public static boolean isValid(String s) {
+        int count = -1;
+        char ch1, ch2;
+        char[] chars = new char[s.length()];
         for (int i = 0; i < s.length(); i++) {
-            ch = s.charAt(i);
-            if (ch == ')' || ch == ']' || ch == '}') {
-                if (!deque.isEmpty()) {
-                    char ch2 = deque.pollLast();
-                    if (ch2 == '(' && ch == ')' || ch2 == '[' && ch == ']' || ch2 == '{' && ch == '}') {
-                        continue;
-                    }
+            ch1 = s.charAt(i);
+            if (ch1 == ')' || ch1 == ']' || ch1 == '}') {
+                if (count < 0) {
+                    return false;
                 }
-                return false;
+                ch2 = chars[count--];
+                if (ch1 == ')' && ch2 != '(' ||
+                        ch1 == ']' && ch2 != '[' ||
+                        ch1 == '}' && ch2 != '{') {
+                    return false;
+                }
             } else {
-                deque.addLast(ch);
+                chars[++count] = ch1;
             }
         }
-        return deque.isEmpty();
+        return count == -1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isValid("{}"));
     }
 }

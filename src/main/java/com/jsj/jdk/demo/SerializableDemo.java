@@ -13,6 +13,15 @@ import java.util.Arrays;
  * 序列化测试
  */
 public class SerializableDemo implements Serializable {
+
+    static class F extends SerializableDemo {
+        int f = 2;
+    }
+
+    static class B extends F {
+        int b = 3;
+    }
+
     private static String string1 = "can not serialize";
 
     private int num = 666;
@@ -76,6 +85,8 @@ public class SerializableDemo implements Serializable {
         ProtostuffIOUtil.mergeFrom(bytes, object, schema);
         System.out.println("----------------------通过Protostuff反序列化恢复----------------------");
         System.out.println(object.toString());
+
+        B b1 = new B();
     }
 
     public int getNum() {

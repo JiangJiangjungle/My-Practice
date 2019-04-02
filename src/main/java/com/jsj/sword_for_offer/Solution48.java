@@ -4,11 +4,11 @@ package com.jsj.sword_for_offer;
  * @author jsj
  * @since 2018-5-12
  * 题目描述：一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
- *
+ * <p>
  * 思路：化为char数组后，进行位运算
  */
 public class Solution48 {
-    public int Add(int num1,int num2) {
+    public int Add(int num1, int num2) {
         char[] chars1 = Integer.toBinaryString(num1).toCharArray();
         char[] chars2 = Integer.toBinaryString(num2).toCharArray();
 

@@ -23,7 +23,7 @@ import java.util.Arrays;
  * <p>
  * 输入: nums = [4,5,6,7,0,1,2], target = 3
  * 输出: -1
- *
+ * <p>
  * 思路：因为每次不存在重复的元素，所以分成两部分：有序数组+旋转数组，对有序数组进行二分搜索，旋转数组继续拆分
  */
 public class Solution33 {
@@ -45,7 +45,7 @@ public class Solution33 {
             if (index > -1) {
                 return index;
             }
-            return search(nums, target, mid+1, high);
+            return search(nums, target, mid + 1, high);
         } else {
             index = Arrays.binarySearch(nums, mid + 1, high + 1, target);
             if (index > -1) {
@@ -56,6 +56,6 @@ public class Solution33 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution33().search(new int[]{2,3,4,7,1,2}, 4));
+        System.out.println(new Solution33().search(new int[]{2, 3, 4, 7, 1, 2}, 4));
     }
 }

@@ -23,6 +23,6 @@ public class Solution44 {
     }
 
     public static void main(String[] args) {
-        System.out.print("-----------"+new Solution44().ReverseSentence(" ")+"-----------");
+        System.out.print("-----------" + new Solution44().ReverseSentence(" ") + "-----------");
     }
 }

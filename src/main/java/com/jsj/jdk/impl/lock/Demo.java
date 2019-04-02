@@ -26,7 +26,7 @@ public class Demo implements Runnable {
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(50, 50, 0L,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(5), new NamedThreadFactory());
         Demo demo = new Demo();

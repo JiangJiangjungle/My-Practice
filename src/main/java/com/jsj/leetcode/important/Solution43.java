@@ -19,31 +19,34 @@ package com.jsj.leetcode.important;
  * num1 和 num2 只包含数字 0-9。
  * num1 和 num2 均不以零开头，除非是数字 0 本身。
  * 不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。
+ * <p>
+ * 思路：用char数组位移乘法
  */
 public class Solution43 {
 
+
     public String multiply(String num1, String num2) {
-        char[] value = new char[num1.length() + num2.length()];
-        for (int i = num1.length() - 1; i >= 0; i--) {
+        char[] chars = new char[num1.length() + num2.length()];
+        for (int tmp, i = num1.length() - 1; i >= 0; i--) {
             for (int j = num2.length() - 1; j >= 0; j--) {
-                value[i + j + 1] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+                tmp = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+                chars[i + j + 1] += tmp;
             }
         }
-        int tag = 0;
-        for (int i = value.length - 1, tmp; i >= 0; i--) {
-            tmp = value[i] + tag;
-            tag = tmp / 10;
-            value[i] = (char) (tmp % 10 + '0');
+        for (int tag = 0, i = chars.length - 1; i >= 0; i--) {
+            chars[i] += tag;
+            tag = chars[i] / 10;
+            chars[i] %= 10;
+            chars[i] += '0';
         }
         int offset = 0;
-        for (; offset < value.length-1; offset++) {
-            if (value[offset] != '0') break;
+        for (; offset < chars.length && chars[offset] == '0'; offset++) {
         }
-        return new String(value, offset, value.length - offset);
+        return offset == chars.length ? "0" : String.valueOf(chars, offset, chars.length - offset);
     }
 
     public static void main(String[] args) {
         System.out.println(new Solution43().multiply("0",
-                "284"));
+                "0"));
     }
 }

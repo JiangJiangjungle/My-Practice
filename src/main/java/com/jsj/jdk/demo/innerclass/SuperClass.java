@@ -16,7 +16,12 @@ public class SuperClass {
      * 成员内部类
      */
     class MemberInnerClass {
-        int x = 0;
+        /**
+         * 不允许静态变量，但是静态常量是允许的
+         */
+        static final int x = 0;
+        int y = 2;
+        final int z = 3;
 
         public MemberInnerClass() {
             System.out.println(member.toString());
@@ -43,10 +48,14 @@ public class SuperClass {
          * 局部内部类
          */
         class LocalInnerClass {
-            //编译优化后，值不改变的变量也可以被局部内部类访问
-            int num = x;
-            //局部内部类可以访问常量
+            /**
+             * 局部内部类只能访问局部常量
+             */
             int num2 = y;
+            /**
+             * 编译优化后，值不改变的局部变量也可以被局部内部类访问
+             */
+            int num = x;
         }
         LocalInnerClass localInnerClass = new LocalInnerClass();
         System.out.println(localInnerClass.num);

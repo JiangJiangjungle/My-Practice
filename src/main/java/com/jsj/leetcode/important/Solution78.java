@@ -26,29 +26,29 @@ import java.util.*;
  */
 public class Solution78 {
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        Deque<Integer> deque = new ArrayDeque<>(nums.length);
-        list.add(new ArrayList<>(0));
-        doSubsets(nums, deque, 0, list);
-        return list;
+        List<List<Integer>> lists = new ArrayList<>();
+        lists.add(new ArrayList<>(0));
+        Deque<Integer> deque = new ArrayDeque<>();
+        doSubsets(nums, 0, lists, deque);
+        return lists;
     }
 
-    private void doSubsets(int[] nums, Deque<Integer> deque, int start, List<List<Integer>> list) {
+    private void doSubsets(int[] nums, int start, List<List<Integer>> lists, Deque<Integer> deque) {
         if (start == nums.length) {
             return;
         }
         for (int i = start; i < nums.length; i++) {
-            deque.addLast(nums[i]);
-            list.add(new ArrayList<>(deque));
-            doSubsets(nums, deque, i + 1, list);
+            deque.offerLast(nums[i]);
+            lists.add(new ArrayList<>(deque));
+            doSubsets(nums, i + 1, lists, deque);
             deque.pollLast();
         }
     }
 
     public static void main(String[] args) {
-        List<List<Integer>> list = new Solution78().subsets(new int[]{1,2,3});
-        if (null!=list){
-            for (List<Integer> aList:list){
+        List<List<Integer>> list = new Solution78().subsets(new int[]{1, 2, 3});
+        if (null != list) {
+            for (List<Integer> aList : list) {
                 System.out.println(Arrays.toString(aList.toArray()));
             }
         }

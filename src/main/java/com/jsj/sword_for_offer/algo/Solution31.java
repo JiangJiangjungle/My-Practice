@@ -21,7 +21,7 @@ public class Solution31 {
             count = count * 10;
         }
         int y = n - x * count;
-        result += x==1 ? y + 1 : count;
+        result += x == 1 ? y + 1 : count;
         result += NumberOf1Between1AndN_Solution(y);
         result += x * NumberOf1Between1AndN_Solution(count - 1);
         return result;

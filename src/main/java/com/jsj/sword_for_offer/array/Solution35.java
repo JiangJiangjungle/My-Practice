@@ -1,5 +1,7 @@
 package com.jsj.sword_for_offer.array;
 
+import java.util.Arrays;
+
 /**
  * @author jsj
  * @since 2018-5-12
@@ -11,52 +13,46 @@ package com.jsj.sword_for_offer.array;
 public class Solution35 {
 
     public int InversePairs(int[] array) {
-        long count = doInverse(array, 0, array.length - 1);
-        return (int) (count % 1000000007);
+        return doInverse(array, 0, array.length - 1);
     }
 
-    private long doInverse(int[] array, int start, int end) {
-        if (start == end) return 0;
-        if (start + 1 == end) {
-            if (array[start] > array[end]) {
-                swap(array, start, end);
+    private int doInverse(int[] array, int low, int high) {
+        if (low >= high) return 0;
+        if (low == high - 1) {
+            if (array[low] > array[high]) {
+                swap(array, low, high);
                 return 1;
-            } else return 0;
+            }
+            return 0;
         }
-        int mid = (start + end) / 2;
-        long count = 0L;
-        count += doInverse(array, start, mid) + doInverse(array, mid + 1, end);
-        int iNow = start;
-        int jNow = mid + 1;
-        int[] temp = new int[end - start + 1];
-        int tempNow = 0;
-        while (iNow <= mid && jNow <= end) {
-            if (array[iNow] > array[jNow]) {
-                count += mid - iNow + 1;
-                temp[tempNow++] = array[jNow++];
+        int mid = (low + high) / 2;
+        long val = doInverse(array, low, mid - 1) + doInverse(array, mid, high);
+        int[] tmp = new int[high - low + 1];
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = array[low + i];
+        }
+        for (int i = low, x = 0, y = mid - low; i <= high; i++) {
+            if (y > high - low || x < mid - low && tmp[x] <= tmp[y]) {
+                array[i] = tmp[x];
+                x++;
             } else {
-                temp[tempNow++] = array[iNow++];
+                array[i] = tmp[y];
+                val += mid - low - x;
+                y++;
             }
         }
-        while (iNow <= mid) {
-            temp[tempNow++] = array[iNow++];
-        }
-        while (jNow <= end) {
-            temp[tempNow++] = array[jNow++];
-        }
-
-        System.arraycopy(temp, 0, array, start, temp.length);
-
-        return count;
+        return (int) (val % 1000000007);
     }
 
-    private void swap(int[] array, int i, int j) {
-        array[i] = array[i] ^ array[j];
-        array[j] = array[i] ^ array[j];
-        array[i] = array[i] ^ array[j];
+    private void swap(int[] array, int low, int high) {
+        int tmp = array[low];
+        array[low] = array[high];
+        array[high] = tmp;
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution35().InversePairs(new int[]{1, 2, 3, 4, 0, 2}));
+        int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7, 0};
+        System.out.println(new Solution35().InversePairs(nums));
+        System.out.println(Arrays.toString(nums));
     }
 }

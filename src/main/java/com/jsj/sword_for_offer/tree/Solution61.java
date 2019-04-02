@@ -20,6 +20,7 @@ public class Solution61 {
         }
 
     }
+
     String Serialize(TreeNode root) {
         if (root == null) return "#";
         StringBuilder sb = new StringBuilder();
@@ -31,7 +32,7 @@ public class Solution61 {
             while (!stack1.empty()) {
                 node = stack1.pop();
                 if (node != null) {
-                    sb.append(String.valueOf(node.val)+",");
+                    sb.append(String.valueOf(node.val) + ",");
                     stack2.push(node.left);
                     stack2.push(node.right);
                 } else {
@@ -49,7 +50,7 @@ public class Solution61 {
             for (int i = 0; i < chars.length; i++) {
                 if (chars[i] <= '9' && chars[i] >= '0') index = i;
             }
-            return s.substring(0,index+1);
+            return s.substring(0, index + 1);
         } else {
             return sb.substring(0, sb.length() - 1);
         }
@@ -63,7 +64,7 @@ public class Solution61 {
         TreeNode now = root;
         LinkedList<TreeNode> list = new LinkedList<>();
         int count = 0;
-        for (int i = 1; i < strings.length ; i++) {
+        for (int i = 1; i < strings.length; i++) {
             if (!strings[i].equals("#")) {
                 if (count == 0) {
                     now.left = new TreeNode(Integer.valueOf(strings[i]));

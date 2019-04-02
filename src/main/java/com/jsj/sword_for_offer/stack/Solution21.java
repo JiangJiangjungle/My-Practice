@@ -11,28 +11,21 @@ import java.util.*;
  */
 public class Solution21 {
 
+
     public boolean IsPopOrder(int[] pushA, int[] popA) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        Map<Integer, Integer> map = new HashMap<>(pushA.length);
+        if (pushA.length == 0 || popA.length == 0) return false;
+        Stack<Integer> s = new Stack<>();
+        //用于标识弹出序列的位置
+        int popIndex = 0;
         for (int i = 0; i < pushA.length; i++) {
-            map.put(pushA[i], i);
+            s.push(pushA[i]);
+            //如果栈不为空，且栈顶元素等于弹出序列
+            for (; !s.empty() && s.peek() == popA[popIndex]; popIndex++) {
+                //出栈
+                s.pop();
+            }
         }
-        for (int i = 0, j = 0; j < popA.length; ) {
-            if (!map.containsKey(popA[j])) return false;
-            if (stack.isEmpty() || map.get(stack.peekLast()) < map.get(popA[j])) {
-                for (; i < pushA.length; i++) {
-                    if (pushA[i] == popA[j]) {
-                        i++;
-                        break;
-                    }
-                    stack.addLast(pushA[i]);
-                }
-                j++;
-            } else if (popA[j] == stack.pollLast()) {
-                j++;
-            } else return false;
-        }
-        return true;
+        return s.empty();
     }
 
     public static void main(String[] args) {

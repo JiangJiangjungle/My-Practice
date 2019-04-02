@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * @author jsj
  * @since 2018-5-12
- *
+ * <p>
  * 题目描述：从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
  */
 public class Solution60 {
@@ -20,6 +20,7 @@ public class Solution60 {
 
         }
     }
+
     ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
         Stack<TreeNode> stack = new Stack<>();
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();

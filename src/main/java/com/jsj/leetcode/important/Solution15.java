@@ -18,12 +18,14 @@ import java.util.List;
  * [-1, 0, 1],
  * [-1, -1, 2]
  * ]
+ * <p>
+ * 思路：排序以后遍历+二分查找，O(log(n)*n^2)  第二种：利用一个TreeMap实现排序和查找，O(n^2)
  */
 public class Solution15 {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
-        for (int z, high = nums.length-1, x = 0; x < nums.length - 1; x++) {
+        for (int z, high = nums.length - 1, x = 0; x < nums.length - 1; x++) {
             if (x > 0 && nums[x] == nums[x - 1]) continue;
             for (int y = x + 1; y < high; y++) {
                 if (y > x + 1 && nums[y] == nums[y - 1]) continue;
@@ -39,11 +41,11 @@ public class Solution15 {
 
     private int binarySearch(int[] nums, int low, int high, int target) {
         high--;
-        int val =-1;
+        int val = -1;
         for (int mid; low <= high; ) {
             mid = (low + high) / 2;
             if (nums[mid] == target) {
-                val=mid;
+                val = mid;
                 break;
             } else if (nums[mid] > target) {
                 high = mid - 1;
@@ -51,12 +53,12 @@ public class Solution15 {
                 low = mid + 1;
             }
         }
-        return val>-1?val:-1;
+        return val > -1 ? val : -1;
     }
 
     public static void main(String[] args) {
-        List<List<Integer>>lists = new Solution15().threeSum(new int[]{-1,0,1,2,-1,-4});
-        for (List<Integer> list:lists){
+        List<List<Integer>> lists = new Solution15().threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+        for (List<Integer> list : lists) {
             System.out.println(Arrays.toString(list.toArray()));
         }
     }

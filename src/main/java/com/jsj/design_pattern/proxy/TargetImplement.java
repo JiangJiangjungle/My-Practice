@@ -1,6 +1,6 @@
 package com.jsj.design_pattern.proxy;
 
-public class TargetImplement implements Target,Target2 {
+public class TargetImplement implements Target, Target2 {
 
     @Override
     public void method() {

@@ -29,20 +29,30 @@ package com.jsj.leetcode.important;
  * p、q 为不同节点且均存在于给定的二叉树中。
  * <p>
  * 思路：从左右子节点开始找p和q的公共祖先，返回null说明不存在祖先，都返回不为null说明分别返回了p和q，则root为最近公共祖先
- *
  */
 public class Solution236 {
 
+    /**
+     * 若存在公共祖先就返回最近公共祖先，否则若包含p节点就返回P节点，若包含q节点就返回q节点。
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || root == p || root == q) return root;
+        if (root == p || root == q || root == null) {
+            return root;
+        }
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         if (left == null && right == null) {
             return null;
         } else if (left != null && right != null) {
             return root;
+        } else {
+            return left == null ? right : left;
         }
-        return left == null ? right : left;
     }
 
     public class TreeNode {

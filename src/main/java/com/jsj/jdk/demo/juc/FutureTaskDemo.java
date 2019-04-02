@@ -30,6 +30,6 @@ public class FutureTaskDemo {
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(5), new NamedThreadFactory());
         FutureTask<Integer> futureTask = new FutureTask<>(new Task(1, 2));
         threadPool.submit(futureTask);
-        System.out.println(Thread.currentThread().getName()+"获取线程执行结果：" + futureTask.get());
+        System.out.println(Thread.currentThread().getName() + "获取线程执行结果：" + futureTask.get());
     }
 }

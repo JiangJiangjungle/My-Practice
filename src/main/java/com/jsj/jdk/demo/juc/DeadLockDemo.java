@@ -14,7 +14,7 @@ public class DeadLockDemo extends Thread {
     public void run() {
         synchronized (lock1) {
             try {
-                System.out.println(Thread.currentThread().getName() + " get " + lock1+", waitting to get"+ lock2);
+                System.out.println(Thread.currentThread().getName() + " get " + lock1 + ", waitting to get" + lock2);
                 Thread.sleep(1000);
                 synchronized (lock2) {
                     System.out.println(Thread.currentThread().getName() + " get " + lock2);

@@ -24,7 +24,7 @@ package com.jsj.leetcode.others;
  */
 public class Solution6 {
     public String convert(String s, int numRows) {
-        if (numRows==1){
+        if (numRows == 1) {
             return s;
         }
         StringBuilder sb = new StringBuilder();

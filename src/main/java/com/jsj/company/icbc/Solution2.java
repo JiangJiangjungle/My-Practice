@@ -25,12 +25,12 @@ import java.util.Scanner;
 public class Solution2 {
 
     public static int maxProft(String[] nums) {
-        int max=Integer.MIN_VALUE;
+        int max = Integer.MIN_VALUE;
         int lastMax = Integer.valueOf(nums[nums.length - 1]);
-        for (int i = nums.length - 2,val,tmp; i >= 0; i--) {
-            lastMax = Math.max(Integer.valueOf(nums[i+1]),lastMax);
-            val = lastMax-Integer.valueOf(nums[i]);
-            if (val>max){
+        for (int i = nums.length - 2, val, tmp; i >= 0; i--) {
+            lastMax = Math.max(Integer.valueOf(nums[i + 1]), lastMax);
+            val = lastMax - Integer.valueOf(nums[i]);
+            if (val > max) {
                 max = val;
             }
         }

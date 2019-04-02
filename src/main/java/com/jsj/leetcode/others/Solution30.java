@@ -45,7 +45,7 @@ public class Solution30 {
             int index = s.indexOf(sb.toString());
             while (index >= 0 && !result.contains(index)) {
                 result.add(index);
-                index = s.indexOf(sb.toString(), index+1);
+                index = s.indexOf(sb.toString(), index + 1);
             }
             return;
         }

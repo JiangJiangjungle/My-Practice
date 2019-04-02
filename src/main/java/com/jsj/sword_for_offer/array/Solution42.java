@@ -16,12 +16,13 @@ public class Solution42 {
         for (int i = 0; i < array.length; i++) {
             record.add(array[i]);
         }
-        ArrayList<Integer> list = new ArrayList<>(2);
-        for (int i = 0, another; i < array.length / 2; i++) {
-            another = sum - array[i];
-            if (record.contains(another)) {
+        ArrayList<Integer> list = null;
+        for (int i = 0, val2; i < array.length / 2; i++) {
+            val2 = sum - array[i];
+            if (record.contains(val2)) {
+                list = new ArrayList<>(2);
                 list.add(array[i]);
-                list.add(another);
+                list.add(val2);
                 break;
             }
         }
@@ -29,6 +30,6 @@ public class Solution42 {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> list = new Solution42().FindNumbersWithSum(new int[]{1,2,4,7,11,15},15);
+        ArrayList<Integer> list = new Solution42().FindNumbersWithSum(new int[]{1, 2, 4, 7, 11, 15}, 15);
     }
 }

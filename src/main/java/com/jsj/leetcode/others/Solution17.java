@@ -30,7 +30,7 @@ public class Solution17 {
         for (; x != -1; ) {
             B:
             for (int y = 0; y < 4; y++) {
-                if (y==3&&!(digits.charAt(x)=='7'||digits.charAt(x)=='9')){
+                if (y == 3 && !(digits.charAt(x) == '7' || digits.charAt(x) == '9')) {
                     break;
                 }
                 now = getChar(digits.charAt(x), y);
@@ -43,7 +43,7 @@ public class Solution17 {
                         if (sb.length() == 0) {
                             return result;
                         }
-                        y= getStart(sb.charAt(x), digits.charAt(x));
+                        y = getStart(sb.charAt(x), digits.charAt(x));
                     }
                     sb.deleteCharAt(x);
                 } else {

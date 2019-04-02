@@ -12,32 +12,18 @@ import java.util.Arrays;
  * 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何。为了方便起见,你可以认为大小王是0。
  */
 public class Solution45 {
+
     public boolean isContinuous(int[] numbers) {
         if (numbers.length == 0) return false;
         Arrays.sort(numbers);
-
-        int kingCount = 0;
-        int last = -1;
-        for (int number : numbers) {
-            if (number == 0) {
-                kingCount++;
-            } else if (last == -1) {
-                last = number;
-            } else if (number - last == 5 && kingCount == 4) {
-                kingCount -= 4;
-                last = number;
-            } else if (number - last == 4 && kingCount >= 3) {
-                kingCount -= 3;
-                last = number;
-            } else if (number - last == 3 && kingCount >= 2) {
-                kingCount -= 2;
-                last = number;
-            } else if (number - last == 2 && kingCount >= 1) {
-                kingCount--;
-                last = number;
-            } else if (number - last == 1) {
-                last = number;
-            } else {
+        int count = 0;
+        int i = 0;
+        for (; i < numbers.length && numbers[i] == 0; count++, i++) {
+        }
+        i++;
+        for (int tmp; i < numbers.length; i++) {
+            tmp = numbers[i] - numbers[i - 1] - 1;
+            if (tmp < 0 || (count -= tmp) < 0) {
                 return false;
             }
         }

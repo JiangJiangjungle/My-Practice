@@ -27,7 +27,7 @@ public class Solution1 {
                 toLeft += find(s, i - 1, 'D', false);
             }
         }
-        return Math.min(toLeft,toRight);
+        return Math.min(toLeft, toRight);
     }
 
     private static int find(String s, int start, char d, boolean rightSide) {
@@ -39,7 +39,7 @@ public class Solution1 {
                 }
             }
         } else {
-            for (int i = start; i >=0; i--) {
+            for (int i = start; i >= 0; i--) {
                 if (s.charAt(i) == d) {
                     count++;
                 }

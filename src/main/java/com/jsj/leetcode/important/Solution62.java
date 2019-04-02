@@ -46,7 +46,7 @@ public class Solution62 {
         if (nowY < n - 1) {
             value += doUniquePaths(m, n, nowX, nowY + 1, record);
         }
-        record[nowX][nowY]= value;
+        record[nowX][nowY] = value;
         return value;
     }
 

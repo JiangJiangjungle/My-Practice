@@ -12,7 +12,7 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        for (;;) {
+        for (; ; ) {
             Object e = queue.poll();
             if (e != null) {
                 System.out.println(Thread.currentThread().getName() + " 消费了 " + e.toString());

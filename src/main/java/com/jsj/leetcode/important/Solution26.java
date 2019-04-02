@@ -37,19 +37,19 @@ package com.jsj.leetcode.important;
  * for (int i = 0; i < len; i++) {
  * print(nums[i]);
  * }
+ * <p>
+ * 思路：用2个下标，一个维护去重后的数组，一个遍历所有元素
  */
 public class Solution26 {
     public int removeDuplicates(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
-        int count = 1;
-        int last = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (last != nums[i]) {
-                last = nums[i];
-                nums[count] = nums[i];
-                count++;
+        int i = 1;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] == nums[j - 1]) {
+                continue;
             }
+            nums[i++] = nums[j];
         }
-        return count;
+        return i;
     }
 }

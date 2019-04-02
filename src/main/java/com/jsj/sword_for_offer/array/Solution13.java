@@ -1,7 +1,8 @@
 package com.jsj.sword_for_offer.array;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
 
 /**
  * @author jsj
@@ -12,25 +13,28 @@ import java.util.LinkedList;
 public class Solution13 {
 
     public void reOrderArray(int[] array) {
-        Deque<Integer> queue1 = new LinkedList<>();
-        Deque<Integer> queue2 = new LinkedList<>();
-        int num;
-        for (int anArray : array) {
-            num = anArray;
-            if (num % 2 == 0) {
-                queue2.add(num);
+        Queue<Integer> queue1 = new ArrayDeque<>();
+        Queue<Integer> queue2 = new ArrayDeque<>();
+        for (int i = 0; i < array.length; i++) {
+            if ((array[i] & 1) == 1) {
+                queue1.add(array[i]);
             } else {
-                queue1.add(num);
+                queue2.add(array[i]);
             }
         }
-        int i = 0;
-        while (!queue1.isEmpty()) {
-            array[i] = queue1.remove();
-            i++;
+        for (int low = 0, high = queue1.size(); queue1.size() > 0 || queue2.size() > 0; low++, high++) {
+            if (queue1.size() > 0) {
+                array[low] = queue1.poll();
+            }
+            if (queue2.size() > 0) {
+                array[high] = queue2.poll();
+            }
         }
-        while (!queue2.isEmpty()) {
-            array[i] = queue2.remove();
-            i++;
-        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7};
+        new Solution13().reOrderArray(arr);
+        System.out.println(Arrays.toString(arr));
     }
 }

@@ -36,12 +36,13 @@ public class Solution46 {
         }
         for (int i = start; i < nums.length; i++) {
             swap(nums, i, start);
-            stack.addLast(nums[start]);
+            stack.offerLast(nums[start]);
             doPermute(nums, start + 1, list, stack);
-            swap(nums, i, start);
             stack.pollLast();
+            swap(nums, i, start);
         }
     }
+
 
     private void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
@@ -50,7 +51,7 @@ public class Solution46 {
     }
 
     public static void main(String[] args) {
-        List<List<Integer>> list = new Solution46().permute(new int[]{});
+        List<List<Integer>> list = new Solution46().permute(new int[]{1, 2, 3});
         for (List<Integer> aList : list) {
             System.out.println(Arrays.toString(aList.toArray()));
         }

@@ -61,7 +61,7 @@ public class Solution39 {
     }
 
     public static void main(String[] args) {
-        List<List<Integer>> list = new Solution39().combinationSum(new int[]{2, 3, 6,7}, 7);
+        List<List<Integer>> list = new Solution39().combinationSum(new int[]{2, 3, 6, 7}, 7);
         if (list != null) {
             for (List<Integer> res : list) {
                 System.out.println(Arrays.toString(res.toArray()));

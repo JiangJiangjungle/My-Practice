@@ -17,24 +17,22 @@ import java.util.PriorityQueue;
 public class Solution64 {
     public ArrayList<Integer> maxInWindows(int[] num, int size) {
         ArrayList<Integer> list = new ArrayList<>();
-        if (size == 0||size>num.length) return list;
+        if (size == 0 || size > num.length) return list;
         //low作为下标始终指向当前窗口最大值
-        for (int low = 0, high = 0; high < num.length; high++) {
-            //若最右元素为新的最大值，则low指针跳至high;
-            if (num[low] <= num[high]) {
+        for (int low = 0, high = 1; high < num.length; high++) {
+            if (num[high] >= num[low]) {
                 low = high;
             }
-            //需要移除的最左元素为最大值
+            //找到当前最大值，用low指针作为下标
             if (high - low == size) {
-                //找到当前最大值，用low指针作为下标
                 low++;
-                for (int tmp = low + 1; tmp < high; tmp++) {
-                    if (num[tmp] >= num[low]) {
-                        low = tmp;
+                for (int i = low; i <= high; i++) {
+                    if (num[i] >= num[low]) {
+                        low = i;
                     }
                 }
             }
-            if (high>=size-1) {
+            if (high >= size - 1) {
                 list.add(num[low]);
             }
         }

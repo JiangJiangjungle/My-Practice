@@ -34,8 +34,8 @@ public class CountDownLatchDemo {
         threadPool.execute(new Task(countDownLatch));
         threadPool.execute(new Task(countDownLatch));
         threadPool.execute(new Task(countDownLatch));
-        System.out.println("A few moments later... : "+ LocalTime.now());
+        System.out.println("A few moments later... : " + LocalTime.now());
         countDownLatch.await();
-        System.out.println("Every Thing OK! : "+ LocalTime.now());
+        System.out.println("Every Thing OK! : " + LocalTime.now());
     }
 }

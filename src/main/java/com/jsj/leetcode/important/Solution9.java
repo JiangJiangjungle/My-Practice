@@ -29,7 +29,7 @@ public class Solution9 {
         for (; x > 0; x /= 10, count++) {
             bits[count] = x % 10;
         }
-        for (int low = 0, high = count-1; low < high; low++, high--) {
+        for (int low = 0, high = count - 1; low < high; low++, high--) {
             if (bits[low] != bits[high]) return false;
         }
         return true;
