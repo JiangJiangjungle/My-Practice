@@ -14,13 +14,13 @@ public class FastSort {
             high = array[--i];
             low = array[--i];
             int mid = partition(num, low, high);
-            if (mid < high) {
-                array[i++] = mid;
+            if (mid < high-1) {
+                array[i++] = mid+1;
                 array[i++] = high;
             }
-            if (mid > low) {
+            if (mid > low+1) {
                 array[i++] = low;
-                array[i++] = mid;
+                array[i++] = mid-1;
             }
         }
         return num;
@@ -67,6 +67,7 @@ public class FastSort {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(sort2(new int[]{6})));
+        int[] array = sort2(new int[]{4});
+        System.out.println(Arrays.toString(array));
     }
 }

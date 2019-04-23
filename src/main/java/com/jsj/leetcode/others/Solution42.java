@@ -13,38 +13,41 @@ package com.jsj.leetcode.others;
  * <p>
  * 输入: [0,1,0,2,1,0,1,3,2,1,2,1]
  * 输出: 6
+ *
+ * 思路：寻找U型坑；从起点开始寻找>=起点高度的下标，若找到则将当前下标更新为起点，开始寻找下一个
  */
 public class Solution42 {
 
     public int trap(int[] height) {
-        boolean prefixFlag = false;
-        int temp = 0;
-        int sum = 0;
-        int length = height.length;
-        int i = 1;
-        boolean flag = false;
-        while (true) {
-            prefixFlag = false;
-            temp = 0;
-            flag = false;
-            for (int j = 0; j < length; j++) {
-                if (height[j] >= i) {
-                    flag = true;
-                    prefixFlag = true;
-                    sum += temp;
-                    temp = 0;
-                } else {
-                    if (prefixFlag) {
-                        temp++;
-                    }
-                }
+        return trap(height,0);
+    }
+
+    private int trap(int[] height, int start) {
+        int val = 0;
+        int secondHigh = -1;
+        int low = start;
+        for (int count = 0, now = low + 1; now < height.length; now++) {
+            if (height[now] >= height[low]) {
+                val += count;
+                low = now;
+                count = 0;
+                secondHigh = -1;
+                continue;
             }
-            if (!flag) {
-                break;
+            if (secondHigh == -1 || height[secondHigh] < height[now]) {
+                secondHigh = now;
             }
-            i++;
+            count += height[low] - height[now];
         }
-        return sum;
+        //未找到大于等于起点高度的下标就更新到第二高的下标
+        if (secondHigh != -1) {
+            for (int now = low + 1; now < secondHigh; now++) {
+                val += height[secondHigh] - height[now];
+            }
+            //从secondHigh为起点重新进行统计
+            val += trap(height, secondHigh);
+        }
+        return val;
     }
 
     public static void main(String[] args) {
