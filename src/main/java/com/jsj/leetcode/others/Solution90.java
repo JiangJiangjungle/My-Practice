@@ -20,6 +20,8 @@ import java.util.*;
  * []
  * ]
  *
+ * 思路：利用全组合思想，同时同一层递归中剔除相同的元素
+ *
  * @author jsj
  * @date 2019-05-06
  */
@@ -38,6 +40,7 @@ public class Solution90 {
             return;
         }
         for (int i = start; i < nums.length; i++) {
+            //剔除相同元素
             if (i > start && nums[i] == nums[i - 1]) {
                 continue;
             }
