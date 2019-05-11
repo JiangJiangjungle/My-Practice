@@ -1,7 +1,5 @@
 package com.jsj.leetcode.others;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
