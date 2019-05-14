@@ -39,8 +39,8 @@ import java.util.*;
  * 输出:
  * []
  * <p>
- * 思路：record[i] 表示 s 中以 i - 1 结尾的字符串是否可被 wordDict 拆分,那么record[i]为true的情况为：
- * 存在一个j<i，使得record[j]&& wordDict.contains(s.substring(j, i))为ture
+ * 思路：用遍历wordDict,若s.startsWith(word)，则计算wordBreak(s.substring(word.length()), wordDict);
+ * 用一个Map做字典。
  *
  * @author jsj
  * @date 2019-05-14
