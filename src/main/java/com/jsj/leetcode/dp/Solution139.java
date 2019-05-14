@@ -27,7 +27,7 @@ import java.util.List;
  * 输出: false
  * <p>
  * 思路：record[i] 表示 s 中以 i - 1 结尾的字符串是否可被 wordDict 拆分,那么record[i]为true的情况为：
- * 存在一个j<i，使得record[j]&& wordDict.contains(s.substring(j, i))为ture
+ * 存在一个0<=j<i，使得record[j]&& wordDict.contains(s.substring(j, i))为ture
  *
  * @author jsj
  * @date 2019-05-14
