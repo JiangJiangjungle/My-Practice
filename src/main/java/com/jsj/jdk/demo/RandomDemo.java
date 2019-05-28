@@ -1,9 +1,6 @@
 package com.jsj.jdk.demo;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.Random;
+import java.util.*;
 
 public class RandomDemo {
     public static Random random = new Random();
@@ -15,6 +12,44 @@ public class RandomDemo {
         Deque<String> deque = new ArrayDeque<>();
         test(record, number, len / 2, len / 2, deque);
         System.out.println(Arrays.toString(deque.toArray()));
+        Map<String, List<String>> branches = getBranches(deque, record);
+        //todo 根据deque拼接路径
+        //todo 根据branches拼接岔路
+    }
+
+    private static Map<String, List<String>> getBranches(Deque<String> deque, boolean[][] record) {
+        Map<String, List<String>> branches = new HashMap<>();
+        int len = deque.size();
+        String position = deque.pollLast();
+        deque.offerFirst(position);
+        for (int i = 0; i < len - 2; i++) {
+            position = deque.pollLast();
+            if (random.nextBoolean()) {
+                String[] numbers = position.split(" ");
+                int x = Integer.parseInt(numbers[0]);
+                int y = Integer.parseInt(numbers[1]);
+                List<String> path = getPath(record, x, y);
+                if (path.size() > 0) {
+                    branches.put(position, path);
+                }
+            }
+            deque.offerFirst(position);
+        }
+        position = deque.pollLast();
+        deque.offerFirst(position);
+        return branches;
+    }
+
+    /**
+     * 创建一条以x,y坐标为起点的岔路
+     *
+     * @param record
+     * @param x
+     * @param y
+     * @return
+     */
+    private static List<String> getPath(boolean[][] record, int x, int y) {
+        return new ArrayList<>();
     }
 
     public static boolean test(boolean[][] record, int number, int i, int j, Deque<String> deque) {
