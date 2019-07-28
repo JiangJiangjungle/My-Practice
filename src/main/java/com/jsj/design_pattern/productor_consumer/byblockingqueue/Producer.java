@@ -1,5 +1,6 @@
 package com.jsj.design_pattern.productor_consumer.byblockingqueue;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,11 +15,12 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            for (; ; ) {
-                if (queue.offer(i)) {
-                    System.out.println(Thread.currentThread().getName() + " 生产了 " + i);
-                    break;
-                }
+            try {
+                queue.put(i);
+                System.out.printf("%s, 线程%s 生产了 %d\n", LocalDateTime.now(), Thread.currentThread().getName(), i);
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

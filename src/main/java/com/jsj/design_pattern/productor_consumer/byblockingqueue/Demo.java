@@ -11,7 +11,6 @@ public class Demo {
         ExecutorService threadPool = new ThreadPoolExecutor(4, 4, 0L,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1000), new NamedThreadFactory());
         threadPool.execute(new Producer(queue));
-        threadPool.execute(new Producer(queue));
         threadPool.execute(new Consumer(queue));
         threadPool.execute(new Consumer(queue));
     }

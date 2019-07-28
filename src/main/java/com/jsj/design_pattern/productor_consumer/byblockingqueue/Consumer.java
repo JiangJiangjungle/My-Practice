@@ -1,5 +1,6 @@
 package com.jsj.design_pattern.productor_consumer.byblockingqueue;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable {
@@ -13,9 +14,11 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
         for (; ; ) {
-            Object e = queue.poll();
-            if (e != null) {
-                System.out.println(Thread.currentThread().getName() + " 消费了 " + e.toString());
+            try {
+                Object e = queue.take();
+                System.out.printf("%s, 线程%s 消费了 %s\n", LocalDateTime.now(), Thread.currentThread().getName(), e.toString());
+            } catch (InterruptedException i) {
+                i.printStackTrace();
             }
         }
     }
