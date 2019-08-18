@@ -15,8 +15,8 @@ package com.jsj.leetcode.dp;
  * 1 是丑数。
  * n 不超过1690。
  * <p>
- * 思路：一定存在i2<i,i3<i,i5<i满足dp[i]=min{d[i2]*2,d[i3]*3,d[i5]*5};
- * 若d[i2]*2==dp[i],dp[i+1]一定会在min{d[i2+1]*2,d[i3]*3,d[i5]*5}中选取最小值，故i2++,另外两个指针同理;
+ * 思路：一定存在i5<=i3<=i2<i满足dp[i]==min{d[i2]*2,d[i3]*3,d[i5]*5};
+ * 若dp[i2]*2==dp[i],下一个最小值一定是min{d[i2+1]*2,d[i3]*3,d[i5]*5}（因为dp[i3]*5一定大于等于dp[i5]*5,而dp[i2+1]*2不确定是否大于另外两值），故i2++,另外两个指针同理;
  */
 public class Solution256 {
     public int nthUglyNumber(int n) {
