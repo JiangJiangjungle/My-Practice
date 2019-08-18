@@ -9,7 +9,8 @@ import java.sql.*;
  * @date 2019-01-22
  */
 public class JdbcDemo {
-    private static String URL = "jdbc:mysql://119.23.204.78:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+    private static String URL = "jdbc:mysql://119.23.204.78:3306/test?useUnicode=true&characterEncoding=utf-8" +
+            "&useSSL=false&useServerPrepStmts=true&cachePrepStmts=true";
     private static String USER_NAME = "root";
     private static String PASSWORD = "123456";
 

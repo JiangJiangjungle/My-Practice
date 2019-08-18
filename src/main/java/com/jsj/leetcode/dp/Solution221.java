@@ -15,7 +15,7 @@ package com.jsj.leetcode.dp;
  * 输出: 4
  *
  * <p>
- * 思路：dp[i][j]表示从(0，0)点到(i，j)点包含的最大正方形边长，从0,0开始遍历
+ * 思路：dp[i][j]表示从(0，0)点到(i-1，j-1)点包含的最大正方形边长，从0,0开始遍历
  * if dp[i][j]==1 则有 dp[i][j]=Min{dp[i-1][j],dp[i][j-1],dp[i-1][j-1]}+1
  *
  * @author jsj
